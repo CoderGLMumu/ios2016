@@ -1,0 +1,40 @@
+/* 
+  colors.strings
+  goutongbao
+
+  Created by zcl on 15/8/6.
+  Copyright (c) 2015年 zcl. All rights reserved.
+*/
+
+"THIN_BLUE"="8EE5EE";
+"THIN_GRAY"="EBEBEB";
+
+"BAR_GRAY"="F8F8F8";
+"DIVISION_LINE" = "EAF0F0";
+
+"BOTTOM_SELECT" = "0080FC";
+
+
+//帮圈颜色
+"Click_Color" = "9AC0CD";
+"Position_Color" = "BFEFFF";
+"Recommend_Color"="fffcee";
+"Inteval_Color"="efeff4";
+
+
+//导航条背景颜色
+"Navigation_Color"="5DA6FC";
+//"Navigation_Color_new"="1976d2";
+"Navigation_Color_new"="222222";
+"Navigation_NotSelect_Color"="d9d9d9";
+
+//个人主页
+"Personal_ZJ_Color"="535353";
+"Personal_XM_Color"="3e3e3f";
+"Integral_Value_Color"="ff9800";
+
+//帮吧
+"Current_Use_Source_Color"="f94e4e";
+
+//搜索背景色
+"Search_Color"="C4C5C9";

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="bmK-Pj-GMF" customClass="popContactUsView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="建众帮服务微信号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fp7-qa-Mtu">
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="jzsxy888" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhu-yv-tYe" userLabel="微信号">
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="1" green="0.59607843137254901" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="如果您在使用中有任何疑问，请第一时间联系我们的工作人员，谢谢。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xra-Qt-390">
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="我知道了" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dh-Qy-QHS" userLabel="微信号">
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="bhu-yv-tYe" firstAttribute="leading" secondItem="fp7-qa-Mtu" secondAttribute="trailing" constant="10" id="0W7-lH-pGi"/>
+                        <constraint firstItem="8dh-Qy-QHS" firstAttribute="top" secondItem="Xra-Qt-390" secondAttribute="bottom" constant="92" id="1ns-H6-Ib7"/>
+                        <constraint firstItem="fp7-qa-Mtu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="7lk-tT-Kcq"/>
+                        <constraint firstItem="bhu-yv-tYe" firstAttribute="centerY" secondItem="fp7-qa-Mtu" secondAttribute="centerY" id="BB8-wA-RWq"/>
+                        <constraint firstItem="Xra-Qt-390" firstAttribute="top" secondItem="fp7-qa-Mtu" secondAttribute="bottom" constant="10" id="C1j-68-2BH"/>
+                        <constraint firstItem="Xra-Qt-390" firstAttribute="leading" secondItem="fp7-qa-Mtu" secondAttribute="leading" id="DXL-ZK-fk5"/>
+                        <constraint firstAttribute="bottom" secondItem="8dh-Qy-QHS" secondAttribute="bottom" constant="10" id="GGT-x2-ntQ"/>
+                        <constraint firstAttribute="trailing" secondItem="8dh-Qy-QHS" secondAttribute="trailing" constant="10" id="Ign-6J-SY3"/>
+                        <constraint firstItem="fp7-qa-Mtu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="OrO-2f-ih9"/>
+                        <constraint firstAttribute="trailing" secondItem="bhu-yv-tYe" secondAttribute="trailing" constant="20" id="esf-3J-dvh"/>
+                        <constraint firstAttribute="trailing" secondItem="Xra-Qt-390" secondAttribute="trailing" constant="20" id="fTR-Iz-Www"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3620068705673759" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="centerY" secondItem="bmK-Pj-GMF" secondAttribute="centerY" id="AwV-Zo-gjh"/>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="centerX" secondItem="bmK-Pj-GMF" secondAttribute="centerX" id="bGm-VF-Lm6"/>
+                <constraint firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" constant="10" id="yyO-vy-vzt"/>
+                <constraint firstItem="iN0-l3-epB" firstAttribute="leading" secondItem="bmK-Pj-GMF" secondAttribute="leading" constant="10" id="zEQ-hr-mOU"/>
+            </constraints>
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="gM6-nz-KDk"/>
+            </connections>
+            <point key="canvasLocation" x="27" y="81"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="RankingCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="320" height="87"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="PHB_No1" translatesAutoresizingMaskIntoConstraints="NO" id="EsV-LX-bD4">
+                        <frame key="frameInset" minX="253" minY="7" width="37" height="37"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="EsV-LX-bD4" secondAttribute="height" multiplier="1:1" id="bbz-Yc-YeF"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZw-q6-k2O" userLabel="帮币：">
+                        <frame key="frameInset" minX="271" minY="48"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="EsV-LX-bD4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="0.8" id="1Ii-1t-A7d"/>
+                    <constraint firstItem="fZw-q6-k2O" firstAttribute="centerX" secondItem="EsV-LX-bD4" secondAttribute="centerX" id="44s-qJ-oHi"/>
+                    <constraint firstAttribute="trailing" secondItem="EsV-LX-bD4" secondAttribute="trailing" constant="30" id="PKj-Uf-rAF"/>
+                    <constraint firstItem="fZw-q6-k2O" firstAttribute="top" secondItem="EsV-LX-bD4" secondAttribute="bottom" constant="4" id="WdY-KW-jcF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="labelToptoIconConstraintH" destination="WdY-KW-jcF" id="S8E-LM-7DS"/>
+                <outlet property="scoreLabel" destination="fZw-q6-k2O" id="Z6j-K9-Htf"/>
+                <outlet property="topNumImageView" destination="EsV-LX-bD4" id="qwP-Ou-kF4"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="PHB_No1" width="37" height="37"/>
+    </resources>
+</document>

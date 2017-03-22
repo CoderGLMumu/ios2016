@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>username</key>
+		<string>王宇翔 豆果美食</string>
+		<key>title</key>
+		<string>黑马会副会长、黑马营4期学员</string>
+		<key>testImage</key>
+		<string>RMimg1</string>
+	</dict>
+	<dict>
+		<key>username</key>
+		<string>栗浩洋 朋友印象</string>
+		<key>title</key>
+		<string>黑马营12期学员</string>
+		<key>testImage</key>
+		<string>RMimg2</string>
+	</dict>
+	<dict>
+		<key>username</key>
+		<string>陈涛 E店宝</string>
+		<key>title</key>
+		<string>黑马会副会长、黑马连营连长</string>
+		<key>testImage</key>
+		<string>RMimg3</string>
+	</dict>
+	<dict>
+		<key>username</key>
+		<string>黄越 木鸟短租</string>
+		<key>title</key>
+		<string>黑马会旅游分会副秘书长、黑马营10期学员</string>
+		<key>testImage</key>
+		<string>RMimg4</string>
+	</dict>
+	<dict>
+		<key>username</key>
+		<string>王宇翔 豆果美食</string>
+		<key>title</key>
+		<string>黑马会副会长、黑马营4期学员</string>
+		<key>testImage</key>
+		<string>RMimg1</string>
+	</dict>
+	<dict>
+		<key>username</key>
+		<string>王宇翔 豆果美食</string>
+		<key>title</key>
+		<string>黑马会副会长、黑马营4期学员</string>
+		<key>testImage</key>
+		<string>RMimg1</string>
+	</dict>
+</array>
+</plist>

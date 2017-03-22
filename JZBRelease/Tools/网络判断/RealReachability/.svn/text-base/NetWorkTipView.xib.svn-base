@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NetWorkTipView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.69999999999999996" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="9Xk-Ru-4gR">
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <items/>
+                </toolbar>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lp2-bq-egJ">
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QxQ-W5-Q6Z">
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="netWorkTip1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="bpz-zs-w2s">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="247" id="5lt-za-qEP"/>
+                                        <constraint firstAttribute="height" constant="441" id="a4H-tI-sa5"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="netWorkTip2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="tWW-ru-8jh">
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="441" id="wZB-xa-jB2"/>
+                                        <constraint firstAttribute="width" constant="247" id="wqP-ts-DPz"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="netWorkTip3.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6VP-DQ-qkr">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="247" id="cdi-th-lGh"/>
+                                        <constraint firstAttribute="height" constant="441" id="xO4-Gl-n39"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idy-R9-Hec">
+                                    <color key="backgroundColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="160" id="cfM-Uv-Cyo"/>
+                                    </constraints>
+                                    <state key="normal" title="我知道了,不再提示">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="ActiveConButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="Pmn-fM-2Ov"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="tWW-ru-8jh" firstAttribute="centerY" secondItem="bpz-zs-w2s" secondAttribute="centerY" id="3GR-SE-oCx"/>
+                                <constraint firstItem="bpz-zs-w2s" firstAttribute="centerY" secondItem="QxQ-W5-Q6Z" secondAttribute="centerY" constant="-20" id="Hbc-UW-IIn"/>
+                                <constraint firstItem="tWW-ru-8jh" firstAttribute="leading" secondItem="bpz-zs-w2s" secondAttribute="trailing" constant="10" id="IeL-6f-yp0"/>
+                                <constraint firstItem="6VP-DQ-qkr" firstAttribute="leading" secondItem="tWW-ru-8jh" secondAttribute="trailing" constant="10" id="Uir-nf-80r"/>
+                                <constraint firstItem="6VP-DQ-qkr" firstAttribute="centerY" secondItem="bpz-zs-w2s" secondAttribute="centerY" id="b7D-ml-5je"/>
+                                <constraint firstItem="idy-R9-Hec" firstAttribute="centerX" secondItem="6VP-DQ-qkr" secondAttribute="centerX" id="kPv-C6-LYn"/>
+                                <constraint firstItem="bpz-zs-w2s" firstAttribute="leading" secondItem="QxQ-W5-Q6Z" secondAttribute="leading" constant="10" id="nLU-lI-To2"/>
+                                <constraint firstItem="idy-R9-Hec" firstAttribute="baseline" secondItem="6VP-DQ-qkr" secondAttribute="baseline" constant="-50" id="wCs-PK-Tk9"/>
+                                <constraint firstAttribute="width" constant="1000" id="zTy-o0-KDn"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.64530695921985815" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="QxQ-W5-Q6Z" firstAttribute="top" secondItem="Lp2-bq-egJ" secondAttribute="top" id="8mY-l6-pLw"/>
+                        <constraint firstAttribute="bottom" secondItem="QxQ-W5-Q6Z" secondAttribute="bottom" id="Oy3-wx-iIa"/>
+                        <constraint firstItem="QxQ-W5-Q6Z" firstAttribute="centerY" secondItem="Lp2-bq-egJ" secondAttribute="centerY" id="Ym5-Fx-QKT"/>
+                        <constraint firstItem="QxQ-W5-Q6Z" firstAttribute="leading" secondItem="Lp2-bq-egJ" secondAttribute="leading" id="k7Y-AO-1ge"/>
+                        <constraint firstAttribute="trailing" secondItem="QxQ-W5-Q6Z" secondAttribute="trailing" id="ndN-IG-zid"/>
+                    </constraints>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tEw-2o-wQh">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="462-nD-hQU"/>
+                        <constraint firstAttribute="height" constant="32" id="hTV-GB-f7i"/>
+                    </constraints>
+                    <state key="normal" image="close"/>
+                    <connections>
+                        <action selector="CloseViewActive:" destination="iN0-l3-epB" eventType="touchUpInside" id="5Za-Yj-Yh0"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您网络连接断开,请保持手机网络顺畅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IvI-Sy-5AX">
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="1" green="0.59607843137254901" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="允许建众帮使用流量,进行如下设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYm-yL-Kgm">
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="1" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Lp2-bq-egJ" secondAttribute="bottom" id="5fU-mD-32O"/>
+                <constraint firstItem="JYm-yL-Kgm" firstAttribute="leading" secondItem="IvI-Sy-5AX" secondAttribute="leading" id="DHw-d6-JEX"/>
+                <constraint firstAttribute="trailing" secondItem="9Xk-Ru-4gR" secondAttribute="trailing" id="Gvk-nn-feq"/>
+                <constraint firstItem="9Xk-Ru-4gR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HEy-Su-ZJN"/>
+                <constraint firstAttribute="trailing" secondItem="Lp2-bq-egJ" secondAttribute="trailing" id="LRa-Rt-2CH"/>
+                <constraint firstItem="IvI-Sy-5AX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="28" id="LuE-M1-xqN"/>
+                <constraint firstItem="JYm-yL-Kgm" firstAttribute="top" secondItem="IvI-Sy-5AX" secondAttribute="bottom" constant="10" id="PEE-1j-j5v"/>
+                <constraint firstItem="Lp2-bq-egJ" firstAttribute="centerX" secondItem="IvI-Sy-5AX" secondAttribute="centerX" id="PNI-1h-LVm"/>
+                <constraint firstAttribute="trailing" secondItem="tEw-2o-wQh" secondAttribute="trailing" constant="15" id="PQ8-Sg-MG6"/>
+                <constraint firstItem="tEw-2o-wQh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="TOH-x4-UA6"/>
+                <constraint firstAttribute="bottom" secondItem="9Xk-Ru-4gR" secondAttribute="bottom" id="dWW-U4-CTZ"/>
+                <constraint firstItem="Lp2-bq-egJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kKB-FV-KeC"/>
+                <constraint firstItem="9Xk-Ru-4gR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mPi-xU-Nxo"/>
+                <constraint firstItem="Lp2-bq-egJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="t4V-SX-NY5"/>
+                <constraint firstItem="IvI-Sy-5AX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="yai-k8-Bb1"/>
+            </constraints>
+            <connections>
+                <outlet property="confirmButton" destination="idy-R9-Hec" id="7t7-dA-IGQ"/>
+                <outlet property="contentView" destination="QxQ-W5-Q6Z" id="Dgf-ae-tbI"/>
+                <outlet property="contentViewWidth" destination="zTy-o0-KDn" id="5Np-Oc-BlP"/>
+                <outlet property="scrollView" destination="Lp2-bq-egJ" id="wLt-1D-b6E"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="54.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="close" width="17" height="18"/>
+        <image name="netWorkTip1.jpg" width="639" height="1136"/>
+        <image name="netWorkTip2.jpg" width="639" height="1136"/>
+        <image name="netWorkTip3.jpg" width="639" height="1136"/>
+    </resources>
+</document>

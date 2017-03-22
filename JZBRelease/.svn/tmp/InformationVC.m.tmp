@@ -1,0 +1,632 @@
+//
+//  InformationVC.m
+//  JZBRelease
+//
+//  Created by cl z on 16/11/25.
+//  Copyright © 2016年 zjapple. All rights reserved.
+//
+
+#import "InformationVC.h"
+
+//#import "WJRefresh.h"
+#import "Defaults.h"
+#import "MJRefresh.h"
+#import "TableViewCellDelegate.h"
+#import "TableViewCell.h"
+#import "SameAskModel.h"
+#import "OtherPersonCentralVC.h"
+#import "CusAddOrReduceBtnView.h"
+#import "YZSortViewController.h"
+#import "LocalDataRW.h"
+#import "SDCycleScrollView.h"
+#import "LWImageBrowserModel.h"
+#import "LWImageBrowser.h"
+#import "GetInfomationModel.h"
+
+#import "ApplyVipVC.h"
+#import "BCH_Alert.h"
+#import "InfomationCell.h"
+#import "YZSortInfomationVC.h"
+#import "InfomationCell2.h"
+#import "InfomationDetailVC.h"
+#import "IndustryModel.h"
+#import "BBGetIndustryModel.h"
+@interface InformationVC()<UITableViewDelegate,UITableViewDataSource,TableViewCellDelegate,SDCycleScrollViewDelegate>{
+    NSInteger preSelector;
+    BOOL footerFresh;
+    NSInteger cusSelector;
+    NSInteger footerCount;
+    NSString *industryID;
+    UILabel *caculateHeighLabel;
+    NSInteger count;
+}
+@property (nonatomic, strong) CusAddOrReduceBtnView *cusAORView;
+@property (nonatomic, strong) WJRefresh *refresh;
+@property (nonatomic, strong) NSMutableArray *dataAry1,*dataAry2,*cusDataAry,*circleAry;
+@property (nonatomic, assign) CGFloat kRefreshBoundary;
+@property (nonatomic, assign,getter = isNeedRefresh) BOOL needRefresh;
+
+@property (nonatomic, assign) int requestCount;
+
+@property (nonatomic, strong) NSArray *industryAry;
+
+
+
+@end
+
+@implementation InformationVC
+@synthesize kRefreshBoundary;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"f2f2f2"]];
+    // [self.view setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 49)];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    kRefreshBoundary = 40.0f;
+    self.title = @"智库";
+    count = 0;
+    //[self configNav];
+    
+    self.requestCount = 0;
+    footerCount = 0;
+    self.cusDataAry = [[NSMutableArray alloc]initWithArray:@[@"推荐",@"原创",@"观点",@"工具表",@"能量图",@"资讯"]];
+   // self.cusDataAry = [LocalDataRW readDataFromLocalOfDocument:@"focusedInfoTags.plist" WithDirectory_Type:Directory_ZX];
+    cusSelector = 0;
+    self.industryAry = [LocalDataRW readDataFromLocalOfDocument:@"AllInfoTags.plist" WithDirectory_Type:Directory_ZX];
+//    if (!self.cusDataAry) {
+//        self.cusDataAry = [[NSMutableArray alloc]initWithArray:@[@"推荐",@"原创",@"观点",@"工具表",@"能量表"]];
+//        [LocalDataRW writeDataToLocaOfDocument:self.cusDataAry WithDirectory_Type:Directory_ZX AtFileName:@"focusedInfoTags.plist"];
+//    }
+//    for (int i = 0; i < self.industryAry.count; i ++) {
+//        NSString *industryStr = [self.cusDataAry objectAtIndex:0];
+//        IndustryModel *industryModel = [IndustryModel mj_objectWithKeyValues:[self.industryAry objectAtIndex:i]];
+//        if ([industryStr isEqualToString:industryModel.title]) {
+//            industryID = industryModel.name;
+//            break;
+//        }
+//    }
+    self.cusAORView = [CusAddOrReduceBtnView cusAddOrReduceBtnView:self.cusDataAry];
+    [self.cusAORView setFrame:CGRectMake(0, 64, SCREEN_WIDTH, 40)];
+    [self.cusAORView initAllViews];
+    self.cusAORView.addBtn.hidden = YES;
+    __weak typeof (self) wself = self;
+    self.cusAORView.returnBlock = ^(NSInteger tag){
+        cusSelector = tag;
+        if (wself.cusDataAry.count > tag) {
+            
+            NSString *industryStr = [wself.cusDataAry objectAtIndex:tag];
+            for (int i = 0; i < self.industryAry.count; i ++) {
+                IndustryModel *industryModel = [IndustryModel mj_objectWithKeyValues:[wself.industryAry objectAtIndex:i]];
+                if ([industryStr isEqualToString:industryModel.title]) {
+                    industryID = industryModel.name;
+                    break;
+                }
+            }
+            if (wself.tableView) {
+                [wself.tableView.mj_header beginRefreshing];
+            }
+        }
+        if (wself.tableView) {
+            [wself.tableView.mj_header beginRefreshing];
+        }
+    };
+    [self.cusAORView.addBtn addTarget:self action:@selector(addBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.cusAORView];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSameAsk:) name:@"UpdateSameAsk" object:nil];
+    
+    [self createTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)configNav
+{
+    //11 20
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 11 + 5 + 40, 35)];
+    UIImageView *backImageView = [UIImageView createImageViewWithFrame:CGRectMake(0, (35-20)/2, 20, 20) ImageName:@"DL_light_ARROW"];
+    backImageView.userInteractionEnabled = YES;
+    [backView addSubview:backImageView];
+    //    UILabel *backLabel = [UILabel createLabelWithFrame:CGRectMake(11 + 5,(35-20)/2, 40, 20) Font:17 Text:@"返回" andLCR:0 andColor:[ValuesFromXML getColor:[ValuesFromXML getValueWithName:@"Navigation_Color" WithKind:XMLTypeColors]]];
+    //    [backView addSubview:backLabel];
+    UIControl *back = [[UIControl alloc] initWithFrame:backView.bounds];
+    [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:back];
+    UIBarButtonItem *leftBtnItem = [[UIBarButtonItem alloc] initWithCustomView:backView];
+    self.navigationItem.leftBarButtonItem = leftBtnItem;
+    
+}
+
+//- (void)backAction{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
+
+
+- (void)addBtnAction{
+    YZSortInfomationVC *yzVC = [[YZSortInfomationVC alloc]init];
+    yzVC.focusedAry = self.cusDataAry;
+    yzVC.returnData = ^(NSMutableArray *dataAry){
+        self.cusDataAry = dataAry;
+        self.industryAry = [LocalDataRW readDataFromLocalOfDocument:@"AllInfoTags.plist" WithDirectory_Type:Directory_ZX];
+        [self.cusAORView removeFromSuperview];
+        self.cusAORView = nil;
+        self.cusAORView = [CusAddOrReduceBtnView cusAddOrReduceBtnView:self.cusDataAry];
+        [self.cusAORView setFrame:CGRectMake(0, 64, SCREEN_WIDTH, 40)];
+        [self.cusAORView initAllViews];
+        __weak typeof (self) wself = self;
+        self.cusAORView.returnBlock = ^(NSInteger tag){
+            cusSelector = tag;
+            if (wself.cusDataAry.count > tag) {
+                NSString *industryStr = [wself.cusDataAry objectAtIndex:tag];
+                for (int i = 0; i < self.industryAry.count; i ++) {
+                    IndustryModel *industryModel = [IndustryModel mj_objectWithKeyValues:[wself.industryAry objectAtIndex:i]];
+                    if ([industryStr isEqualToString:industryModel.title]) {
+                        industryID = industryModel.name;
+                        break;
+                    }
+                }
+
+                if (wself.tableView) {
+                    [wself.tableView.mj_header beginRefreshing];
+                }
+            }
+        };
+        [self.cusAORView.addBtn addTarget:self action:@selector(addBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.cusAORView];
+    };
+    self.tabBarController.tabBar.hidden = YES;
+    [self.navigationController pushViewController:yzVC animated:YES];
+}
+
+- (void)createTableView{
+    NSLog(@"self.view.frame.size.height %f",self.view.frame.size.height);
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64 + 40, self.view.frame.size.width, self.view.frame.size.height - 64 - 40 - 49) style:UITableViewStylePlain];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"f2f2f2"];
+    [self.view addSubview:tableView];
+    
+    self.tableView = tableView;
+    __unsafe_unretained UITableView *tableView1 = self.tableView;
+    
+    // 下拉刷新
+    tableView1.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        footerFresh = NO;
+        [self createData];
+        
+    }];
+    
+    // 设置自动切换透明度(在导航栏下面自动隐藏)
+    tableView1.mj_header.automaticallyChangeAlpha = YES;
+    
+    // 上拉刷新
+    tableView1.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
+        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //            // 结束刷新
+        //            [tableView1.mj_footer endRefreshing];
+        //        });
+        footerFresh = YES;
+        [self createFootData];
+    }];
+    [tableView1.mj_header beginRefreshing];
+}
+
+- (void)createData{
+    NSLog(@"-----------头部刷新数据-----------");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.industryAry && self.industryAry.count > 0 && count != 0) {
+            [self downloadData];
+        }else{
+            [self downloadTag];
+        }
+        
+    });
+    
+}
+
+- (void)createFootData{
+    NSLog(@"-----------尾部加载更多数据-----------");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //        for (int i = 200; i < 210; i ++) {
+        //            [self.dataSource addObject:[NSString stringWithFormat:@"%d",i]];
+        //        }
+        [self downloadData];
+        //        [_refresh endRefresh];
+    });
+}
+
+
+
+
+
+- (void)refreshBegin {
+    [UIView animateWithDuration:0.2f animations:^{
+        self.tableView.contentInset = UIEdgeInsetsMake(kRefreshBoundary, 0.0f, 0.0f, 0.0f);
+    } completion:^(BOOL finished) {
+        // [self.tableViewHeader refreshingAnimateBegin];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self downloadData];
+        });
+    }];
+}
+
+- (void)downloadTag {
+//    CustomAlertView *alertView = [CustomAlertView defaultCustomAlertView:@"加载中..."];
+//    [self lew_presentPopupView:alertView animation:[LewPopupViewAnimationSpring new]];
+//    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [[HttpManager shareManager] netStatus:^(AFNetworkReachabilityStatus status) {
+            if(status == AFNetworkReachabilityStatusReachableViaWWAN || status ==AFNetworkReachabilityStatusReachableViaWiFi){
+                BBGetIndustryModel *model = [[BBGetIndustryModel alloc]init];
+                model.id = @"0";
+                model.tree = @"0";
+                SendAndGetDataFromNet *send = [[SendAndGetDataFromNet alloc]init];
+                
+                __block typeof (send) wsend = send;
+                send.returnArray = ^(NSArray *ary){
+                    if (ary && ary.count > 0) {
+                        if ([LocalDataRW writeDataToLocaOfDocument:ary WithDirectory_Type:Directory_ZX AtFileName:@"AllInfoTags.plist"]) {
+                            NSLog(@"write successfully");
+                        }
+                        count = 1;
+                        NSString *industryStr = [self.cusDataAry objectAtIndex:0];
+                        self.industryAry = [LocalDataRW readDataFromLocalOfDocument:@"AllInfoTags.plist" WithDirectory_Type:Directory_ZX];
+                        for (int i = 0; i < self.industryAry.count; i ++) {
+                            IndustryModel *industryModel = [IndustryModel mj_objectWithKeyValues:[self.industryAry objectAtIndex:i]];
+                            if ([industryStr isEqualToString:industryModel.title]) {
+                                industryID = industryModel.name;
+                                break;
+                            }
+                        }
+                        [self downloadData];
+                    }else{
+                        if (self.requestCount > 0) {
+                            [Toast makeShowCommen:@"您的网络有问题, " ShowHighlight:@"请重置" HowLong:0.8];
+                            self.requestCount = 0;
+                            if (footerFresh) {
+                                footerFresh = NO;
+                                [self.tableView.mj_footer endRefreshing];
+                            }else{
+                                [self.tableView.mj_header endRefreshing];
+                            }
+                            return ;
+                        }
+                        [LoginVM getInstance].isGetToken = ^(){
+                            [wsend dictDataFromNet:model WithRelativePath:@"Article_Column_List_URL"];
+                            self.requestCount ++;
+                        };
+                        [[LoginVM getInstance] loginWithUserInfoForGetNewToken:[[LoginVM getInstance] readLocal]];
+
+                    }
+                };
+                [send dictDataFromNet:model WithRelativePath:@"Article_Column_List_URL"];
+                
+                
+            }else{
+                [Toast makeShowCommen:@"您的网络有问题 " ShowHighlight:@"请重置" HowLong:1.2];
+            }
+        }];
+    });
+}
+
+
+
+- (void)downloadData {
+    
+    [[HttpManager shareManager] netStatus:^(AFNetworkReachabilityStatus status) {
+        if(status == AFNetworkReachabilityStatusReachableViaWWAN || status ==AFNetworkReachabilityStatusReachableViaWiFi){
+            GetInfomationModel *model = [[GetInfomationModel alloc]init];
+            model.access_token = [[LoginVM getInstance] readLocal].token;
+            if (footerFresh) {
+                footerCount++;
+                model.page = [NSString stringWithFormat:@"%ld",footerCount];
+            }else{
+                model.page = @"0";
+            }
+            if (industryID) {
+                model.cate = industryID;
+            }else{
+                model.cate = @"tuijian";
+            }
+            
+            SendAndGetDataFromNet *sendAndget = [[SendAndGetDataFromNet alloc]init];
+            __block SendAndGetDataFromNet *wsend = sendAndget;
+            sendAndget.returnDict = ^(NSDictionary *dict){
+                if (1 == [[dict objectForKey:@"state"] intValue]) {
+                    dispatch_async(dispatch_queue_create("question_queue", nil), ^{
+                        self.requestCount = 0;
+                        NSArray *ary = [dict objectForKey:@"data"];
+                        NSLog(@"%@",ary);
+                        if (footerFresh) {
+                            if (ary.count == 0) {
+                                [self.tableView.mj_footer endRefreshing];
+                                return ;
+                            }
+                            [self dealDataWithArray:ary];
+                        }else{
+                            if (self.dataAry1) {
+                                [self.dataAry1 removeAllObjects];
+                                footerCount = 0;
+                            }
+                            if (self.dataAry2) {
+                                [self.dataAry2 removeAllObjects];
+                            }
+                            [self dealDataWithArray:ary];
+                        }
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self refreshComplete];
+                        });
+                    });
+                    
+                }else{
+                    if (self.requestCount > 0) {
+                        [Toast makeShowCommen:@"您的网络有问题, " ShowHighlight:@"请重置" HowLong:0.8];
+                        self.requestCount = 0;
+                        if (footerFresh) {
+                            footerFresh = NO;
+                            [self.tableView.mj_footer endRefreshing];
+                        }else{
+                            [self.tableView.mj_header endRefreshing];
+                        }
+                        return ;
+                    }
+                    [LoginVM getInstance].isGetToken = ^(){
+                        model.access_token = [[LoginVM getInstance] readLocal].token;
+                        [wsend dictFromNet:model WithRelativePath:@"Article_List_URL"];
+                        self.requestCount ++;
+                    };
+                    [[LoginVM getInstance] loginWithUserInfoForGetNewToken:[[LoginVM getInstance] readLocal]];
+                }
+            };
+            [sendAndget dictFromNet:model WithRelativePath:@"Article_List_URL"];
+        }else{
+            [Toast makeShowCommen:@"您的网络有问题 " ShowHighlight:@"请重置" HowLong:0.8];
+            if (footerFresh) {
+                footerFresh = NO;
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_header endRefreshing];
+            }
+            
+        }
+    }];
+    
+}
+
+
+- (void)dealDataWithArray:(NSArray *)ary{
+    for (int i = 0; i < ary.count; i ++) {
+        InfomationModel *model = [InfomationModel mj_objectWithKeyValues:[ary objectAtIndex:i]];
+        NSRange range0 = [model.cover rangeOfString:@"<"];
+        NSRange range1 = [model.cover rangeOfString:@">"];
+        if ([model.position isEqualToString:@"8"]) {
+            if (model.cover && model.cover.length > 0 && (range0.length == 0) && (range1.length == 0)) {
+                if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)568) < DBL_EPSILON) {
+                    model.cellHeight = [self returnHeighWithText:model.title] + 300 * 150 / 355 + 10 + 6  + 38;
+                }else if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)736) < DBL_EPSILON){
+                    model.cellHeight = [self returnHeighWithText:model.title] + 394 * 150 / 355 + 10 + 6 + 38;
+                    
+                }else if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)667) < DBL_EPSILON){
+                    model.cellHeight = [self returnHeighWithText:model.title] + 150 + 10 + 6 + 38;
+                }
+            }else{
+                model.cellHeight = [self returnHeighWithText:model.title] + 6 + 38;
+            }
+            [self.dataAry1 insertObject:model atIndex:0];
+        }else if ([model.position isEqualToString:@"4"]){
+            
+            if (model.cover && model.cover.length > 0 && (range0.length == 0) && (range1.length == 0)) {
+                if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)568) < DBL_EPSILON) {
+                    model.cellHeight = [self returnHeighWithText:model.title] + 300 * 150 / 355 + 10 + 6 + 38;
+                }else if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)736) < DBL_EPSILON){
+                    model.cellHeight = [self returnHeighWithText:model.title] + 394 * 150 / 355 + 10 + 6 + 38;
+                    
+                }else if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)667) < DBL_EPSILON){
+                    model.cellHeight = [self returnHeighWithText:model.title] + 150 + 10 + 6  + 38;
+                }
+            }else{
+                model.cellHeight = [self returnHeighWithText:model.title] + 6 + 38;
+            }
+            [self.dataAry1 addObject:model];
+        }else{
+            if (model.cover && model.cover.length > 0 && (range0.length == 0) && (range1.length == 0)) {
+                if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)568) < DBL_EPSILON) {
+                    model.cellHeight =  320.0 / 375.0 * 77 + 10 + 19.8;
+                }else if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)736) < DBL_EPSILON){
+                    model.cellHeight = 414.0 / 375 * 77 + 10 + 19.8;
+                    
+                }else if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)667) < DBL_EPSILON){
+                    model.cellHeight = 77 + 10 + 19.8;
+                }
+
+            }else{
+                model.cellHeight = [self returnHeighWithText:model.title] + 38;
+            }
+            [self.dataAry2 addObject:model];
+        }
+    }
+}
+
+- (NSInteger) returnHeighWithText:(NSString *)text{
+    
+  //  int heigh = 0;
+    int inteval = 0;
+    int font = 0;
+    if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)568) < DBL_EPSILON) {
+     //   heigh = 320.0 / 375 * 77;
+        inteval = 4;
+        font = 14;
+    }else if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)736) < DBL_EPSILON){
+      //  heigh = 414.0 / 375 * 77;
+        inteval = 8;
+        font = 18;
+    }else if (fabs((double)MAX(Main_Screen_Width, Main_Screen_Height) - (double)667) < DBL_EPSILON){
+  //      heigh = 77;
+        inteval = 6;
+        font = 17;
+    }
+    NSInteger height1 = 0;
+    
+    if (!caculateHeighLabel) {
+        caculateHeighLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 15, GLScreenW - 20, 0)];
+        caculateHeighLabel.backgroundColor = [UIColor clearColor]; //背景色
+        caculateHeighLabel.userInteractionEnabled = NO;
+        caculateHeighLabel.numberOfLines = 0;
+        caculateHeighLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        caculateHeighLabel.font = [UIFont systemFontOfSize:font];
+    }
+    NSDictionary *attrDict = @{NSFontAttributeName:[UIFont systemFontOfSize:font]};
+    int singleWidth = [@"大" sizeWithAttributes:attrDict].width;
+    int count = (SCREEN_WIDTH - 20) / singleWidth;
+    NSString *modelStr;
+    if (text.length > count * 2) {
+        modelStr = [[text substringToIndex:(2 * count - 4)] stringByAppendingString:@"..."];
+    }else{
+        modelStr = text;
+    }
+
+    caculateHeighLabel.text = modelStr;
+    NSMutableAttributedString * attributedString2 = [[NSMutableAttributedString alloc] initWithString:caculateHeighLabel.text];
+    NSMutableParagraphStyle * paragraphStyle2 = [[NSMutableParagraphStyle alloc] init];
+    if (text.length <= count) {
+        [paragraphStyle2 setLineSpacing:0];
+    }else{
+        [paragraphStyle2 setLineSpacing:inteval];
+    }
+    
+    [attributedString2 addAttribute:NSParagraphStyleAttributeName value:paragraphStyle2 range:NSMakeRange(0, [caculateHeighLabel.text length])];
+    [caculateHeighLabel setAttributedText:attributedString2];
+    CGSize subscribeInfoTviewsize = [caculateHeighLabel sizeThatFits:CGSizeMake(GLScreenW - 20, MAXFLOAT)];
+    [caculateHeighLabel setFrame:CGRectMake(10, 15, GLScreenW - 20, subscribeInfoTviewsize.height)];
+    height1 = caculateHeighLabel.frame.origin.y + caculateHeighLabel.frame.size.height;
+    
+    return height1;
+}
+
+- (void)refreshComplete {
+    //[self.tableViewHeader refreshingAnimateStop];
+    [UIView animateWithDuration:0.35f animations:^{
+        //self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
+    } completion:^(BOOL finished) {
+        [self.tableView reloadData];
+        self.needRefresh = NO;
+        if (footerFresh) {
+            footerFresh = NO;
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_header endRefreshing];
+        }
+        
+    }];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (0 == section) {
+        return self.dataAry1.count;
+    }else{
+        return self.dataAry2.count;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        static NSString* cellIdentifier0 = @"InfomationCell";
+        InfomationCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier0];
+        if (!cell) {
+            cell = [[InfomationCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier0];
+        }
+        if (self.dataAry1.count > indexPath.row) {
+            cell.model = [self.dataAry1 objectAtIndex:indexPath.row];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else{
+        static NSString* cellIdentifier = @"InfomationCell2";
+        InfomationCell2 *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (!cell) {
+            cell = [[InfomationCell2 alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        if (self.dataAry2.count > indexPath.row) {
+            cell.model = [self.dataAry2 objectAtIndex:indexPath.row];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+   
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    AppDelegate *appD = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if (!appD.vip) {
+        [UIView bch_showWithTitle:@"请加入建众帮" message:@"我要加入" buttonTitles:@[@"取消",@"确定"] callback:^(id sender, NSUInteger buttonIndex) {
+            if (1 == buttonIndex) {
+                //AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                
+                //if (appDelegate.checkpay) {
+                ApplyVipVC *applyVipVC = [[ApplyVipVC alloc]init];
+                [self.navigationController pushViewController:applyVipVC animated:YES];
+                //}
+            }
+        }];
+        return;
+    }
+    
+    InfomationModel *model;
+    if (0 == indexPath.section) {
+        model = [self.dataAry1 objectAtIndex:indexPath.row];
+    }else{
+        model = [self.dataAry2 objectAtIndex:indexPath.row];
+    }
+    InfomationDetailVC *detailVC = [[InfomationDetailVC alloc]init];
+    detailVC.infoID = model.id;
+    detailVC.model = model;
+    [self.navigationController pushViewController:detailVC animated:YES];
+    
+}
+
+
+
+//- (void)viewWillAppear:(BOOL)animated{
+//    //[[ZJBHelp getInstance].bbRootVC.navigationController setNavigationBarHidden:NO animated:YES];
+//    self.tabBarController.tabBar.hidden = YES;
+//}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (0 == indexPath.section) {
+        InfomationModel *model = [self.dataAry1 objectAtIndex:indexPath.row];
+        return model.cellHeight;
+    }else{
+        InfomationModel *model = [self.dataAry2 objectAtIndex:indexPath.row];
+        return model.cellHeight;
+    }
+}
+
+- (NSMutableArray *)dataAry1{
+    if (_dataAry1) {
+        return _dataAry1;
+    }
+    _dataAry1 = [[NSMutableArray alloc]init];
+    return _dataAry1;
+}
+
+- (NSMutableArray *)dataAry2{
+    if (_dataAry2) {
+        return _dataAry2;
+    }
+    _dataAry2 = [[NSMutableArray alloc]init];
+    return _dataAry2;
+}
+
+@end

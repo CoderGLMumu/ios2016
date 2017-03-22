@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PayMoneyHelpMe">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5So-kX-MHJ">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <mutableString key="text">帮币使用规则说明
+一、什么是帮币？
+       帮币是建众帮平台上流通的虚拟货币，用于您在建众帮上一系列活动，如悬赏、打赏、建群、发布商机等。帮币不可以提现或交易。
+二、如何获得帮币？
+       1、注册充值，1帮币=人民币1元，在我的-帮币模块充值；
+       2、有悬赏类型问答时，提供建议或答案，得到采纳时就获得该悬赏金额的帮币数。
+       3、发布评论或直播得到打赏。
+三、如何使用帮币？
+       1、在帮吧-商机模块发布商机消耗帮币10/次；
+       2、在帮吧-问答模块发布问答消耗帮币 0/次，问答加急消耗帮币 5/次，悬赏相应的的帮币数会转给问答采纳的人；
+       3、对直播或评论比较认可时候，自定义悬赏帮币数。
+四、安全协议
+       身份要素是建众帮识别您身份的依据，请您务必妥善保管。 使用身份要素进行的任何操作、发出的任何指令均视为您本人做出。因您的原因造成的账户、密码等信息被冒用、盗用或非法使用，由此引起的一切风险、责任、损失、费用等应由您自行承担。 
+       本规则的最终解释权归建众帮APP平台所有，接受则默认为同意本规则的所有条款。
+</mutableString>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZf-Fn-vTC">
+                    <state key="normal" image="videoClose"/>
+                    <connections>
+                        <action selector="close:" destination="iN0-l3-epB" eventType="touchUpInside" id="ltM-vl-UVx"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.3588486259" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="5So-kX-MHJ" secondAttribute="trailing" constant="10" id="0sg-gz-A3l"/>
+                <constraint firstItem="5So-kX-MHJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="32W-dJ-sj7"/>
+                <constraint firstItem="5So-kX-MHJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="74" id="BAs-YN-ol5"/>
+                <constraint firstItem="YZf-Fn-vTC" firstAttribute="centerY" secondItem="5So-kX-MHJ" secondAttribute="top" constant="5" id="MJG-6M-kKJ"/>
+                <constraint firstAttribute="bottom" secondItem="5So-kX-MHJ" secondAttribute="bottom" constant="10" id="YdJ-4F-4TY"/>
+                <constraint firstAttribute="trailing" secondItem="YZf-Fn-vTC" secondAttribute="trailing" constant="5" id="k4I-Ri-X9n"/>
+            </constraints>
+            <connections>
+                <outlet property="contentView" destination="5So-kX-MHJ" id="tB0-oJ-kx1"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="videoClose" width="25" height="25"/>
+    </resources>
+</document>

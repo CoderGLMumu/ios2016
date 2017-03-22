@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="KGk-i7-Jjw" customClass="WDRootCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="375" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WD_GRDT" translatesAutoresizingMaskIntoConstraints="NO" id="5pc-G2-7Zk">
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="5pc-G2-7Zk" secondAttribute="height" multiplier="1:1" id="s8y-nG-c7G"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4z-hH-ucS" userLabel="titleName">
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WD_ARROW" translatesAutoresizingMaskIntoConstraints="NO" id="tUP-1N-fP2"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hca-qC-Dvm" userLabel="rightLabel">
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="tUP-1N-fP2" firstAttribute="leading" secondItem="hca-qC-Dvm" secondAttribute="trailing" constant="12" id="1YD-qB-zoU"/>
+                    <constraint firstItem="Z4z-hH-ucS" firstAttribute="leading" secondItem="5pc-G2-7Zk" secondAttribute="trailing" constant="13" id="7cN-Wg-Cjg"/>
+                    <constraint firstItem="tUP-1N-fP2" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="A3I-Io-QeN"/>
+                    <constraint firstItem="5pc-G2-7Zk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Pzh-mT-ZeJ"/>
+                    <constraint firstItem="hca-qC-Dvm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="SSO-kG-lgu"/>
+                    <constraint firstAttribute="trailing" secondItem="tUP-1N-fP2" secondAttribute="trailing" constant="20" id="Um2-uB-95M"/>
+                    <constraint firstItem="Z4z-hH-ucS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dfU-P9-kVK"/>
+                    <constraint firstItem="5pc-G2-7Zk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="wFh-lR-d8n"/>
+                    <constraint firstItem="5pc-G2-7Zk" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="y2e-oK-VRN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imageNameView" destination="5pc-G2-7Zk" id="ZZK-1K-cI6"/>
+                <outlet property="rightLabel" destination="hca-qC-Dvm" id="6nQ-Lv-KjL"/>
+                <outlet property="titleNameLabel" destination="Z4z-hH-ucS" id="d5c-vB-XbL"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="54"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="WD_ARROW" width="8" height="15"/>
+        <image name="WD_GRDT" width="26" height="26"/>
+    </resources>
+</document>

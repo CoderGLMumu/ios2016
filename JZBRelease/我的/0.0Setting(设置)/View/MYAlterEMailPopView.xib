@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MYAlterEMailPopView">
+            <rect key="frame" x="0.0" y="0.0" width="287" height="177"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="修改邮箱地址:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vu-AL-AZ4">
+                    <frame key="frameInset" minX="10" minY="10" width="88.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QqQ-mf-cY1" userLabel="分割线">
+                    <color key="backgroundColor" red="0.36470588240000001" green="0.65098039220000004" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="KBp-yt-vCh"/>
+                    </constraints>
+                </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入邮箱地址" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zxc-ar-PrV">
+                    <color key="textColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="如果您重新更改邮箱地址，您需要对邮箱地址重新进行验证。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrd-9x-tMB">
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5k-g4-eYi">
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="取消">
+                        <color key="titleColor" red="0.36470588240000001" green="0.65098039220000004" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="clickCancelButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="3nb-eU-PUF"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQJ-JV-oYv">
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="确定">
+                        <color key="titleColor" red="0.36470588240000001" green="0.65098039220000004" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="clickEnterButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="wvd-ZG-S5j"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4e3-tE-X79" userLabel="分割线2">
+                    <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="xRP-W2-6er"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzA-aB-EmG" userLabel="分割线3">
+                    <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="oyS-Gz-TID"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="QqQ-mf-cY1" secondAttribute="trailing" constant="12" id="0Ly-Mv-4bF"/>
+                <constraint firstItem="QqQ-mf-cY1" firstAttribute="top" secondItem="zxc-ar-PrV" secondAttribute="bottom" constant="5" id="7gu-Ap-dQV"/>
+                <constraint firstItem="d5k-g4-eYi" firstAttribute="height" secondItem="CQJ-JV-oYv" secondAttribute="height" id="8qv-xg-bX2"/>
+                <constraint firstItem="2Vu-AL-AZ4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="9y3-5Z-i30"/>
+                <constraint firstAttribute="bottom" secondItem="yzA-aB-EmG" secondAttribute="bottom" id="KOu-eg-PB7"/>
+                <constraint firstItem="QqQ-mf-cY1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="KvF-3G-tb5"/>
+                <constraint firstAttribute="bottom" secondItem="CQJ-JV-oYv" secondAttribute="bottom" id="PZq-e7-HLZ"/>
+                <constraint firstItem="d5k-g4-eYi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Q1m-co-7fO"/>
+                <constraint firstItem="4e3-tE-X79" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Slm-9u-CgT"/>
+                <constraint firstAttribute="trailing" secondItem="yrd-9x-tMB" secondAttribute="trailing" constant="12" id="TNu-Hb-B8p"/>
+                <constraint firstItem="CQJ-JV-oYv" firstAttribute="leading" secondItem="d5k-g4-eYi" secondAttribute="trailing" id="Uq1-6o-FXG"/>
+                <constraint firstItem="2Vu-AL-AZ4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Zqc-1H-ieO"/>
+                <constraint firstItem="CQJ-JV-oYv" firstAttribute="top" secondItem="4e3-tE-X79" secondAttribute="bottom" constant="2" id="a0h-1m-OZf"/>
+                <constraint firstItem="d5k-g4-eYi" firstAttribute="width" secondItem="CQJ-JV-oYv" secondAttribute="width" id="btO-wl-uNW"/>
+                <constraint firstAttribute="trailing" secondItem="4e3-tE-X79" secondAttribute="trailing" id="e6T-mz-KR0"/>
+                <constraint firstAttribute="trailing" secondItem="zxc-ar-PrV" secondAttribute="trailing" constant="12" id="ewe-GZ-sQM"/>
+                <constraint firstItem="CQJ-JV-oYv" firstAttribute="leading" secondItem="d5k-g4-eYi" secondAttribute="trailing" id="jIn-O9-dkJ"/>
+                <constraint firstItem="yzA-aB-EmG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="jsU-qB-ycf"/>
+                <constraint firstItem="QqQ-mf-cY1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="85" id="nZD-QV-MkO"/>
+                <constraint firstItem="zxc-ar-PrV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="rEp-sK-vU6"/>
+                <constraint firstAttribute="bottom" secondItem="d5k-g4-eYi" secondAttribute="bottom" id="rWo-m4-sc9"/>
+                <constraint firstItem="yrd-9x-tMB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="uA6-vS-lYa"/>
+                <constraint firstAttribute="trailing" secondItem="CQJ-JV-oYv" secondAttribute="trailing" id="uJf-CQ-AYQ"/>
+                <constraint firstItem="yzA-aB-EmG" firstAttribute="top" secondItem="4e3-tE-X79" secondAttribute="bottom" id="vP9-Bd-7Nf"/>
+                <constraint firstItem="yrd-9x-tMB" firstAttribute="top" secondItem="QqQ-mf-cY1" secondAttribute="bottom" constant="5" id="wKB-V1-EXk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="cancelButton" destination="d5k-g4-eYi" id="pHQ-Nv-iNJ"/>
+                <outlet property="confirmButton" destination="CQJ-JV-oYv" id="EXO-X3-laQ"/>
+                <outlet property="eMailTF" destination="zxc-ar-PrV" id="1RH-1H-4fR"/>
+            </connections>
+            <point key="canvasLocation" x="433.5" y="185.5"/>
+        </view>
+    </objects>
+</document>

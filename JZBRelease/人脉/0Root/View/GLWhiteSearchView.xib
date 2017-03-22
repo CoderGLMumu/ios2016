@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GLWhiteSearchView">
+            <rect key="frame" x="0.0" y="0.0" width="297" height="32"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCG-QF-sT5">
+                    <rect key="frame" x="10" y="5" width="51" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SWJ-uZ-XEn" userLabel="分割线">
+                    <rect key="frame" x="71" y="5" width="1" height="22"/>
+                    <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="35O-Hk-Id6"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="rm_contacts_seek" translatesAutoresizingMaskIntoConstraints="NO" id="rL8-eW-BLb" userLabel="搜索图片">
+                    <rect key="frame" x="138" y="5" width="21" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="rL8-eW-BLb" secondAttribute="height" multiplier="1:1" id="3dG-Hd-gbA"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="搜索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bk3-Wu-KTJ">
+                    <rect key="frame" x="167" y="6" width="34" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="rL8-eW-BLb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Iar-95-mrq"/>
+                <constraint firstItem="OCG-QF-sT5" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="TJP-f9-FAh"/>
+                <constraint firstAttribute="bottom" secondItem="SWJ-uZ-XEn" secondAttribute="bottom" constant="5" id="ZFN-k9-1it"/>
+                <constraint firstItem="Bk3-Wu-KTJ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="eBr-z8-Jda"/>
+                <constraint firstItem="SWJ-uZ-XEn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="o2I-qu-r1Y"/>
+                <constraint firstItem="Bk3-Wu-KTJ" firstAttribute="leading" secondItem="rL8-eW-BLb" secondAttribute="trailing" constant="8" id="pcs-Rn-Kqm"/>
+                <constraint firstItem="SWJ-uZ-XEn" firstAttribute="leading" secondItem="OCG-QF-sT5" secondAttribute="trailing" constant="10" id="sX4-rc-AOR"/>
+                <constraint firstItem="OCG-QF-sT5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="uB9-6W-vrK"/>
+                <constraint firstItem="rL8-eW-BLb" firstAttribute="height" secondItem="OCG-QF-sT5" secondAttribute="height" id="uXR-Ek-yAu"/>
+                <constraint firstItem="rL8-eW-BLb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="vfm-LF-oH2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addressLabel" destination="OCG-QF-sT5" id="4Zg-X1-Ybu"/>
+            </connections>
+            <point key="canvasLocation" x="387.5" y="338"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="rm_contacts_seek" width="16" height="16"/>
+    </resources>
+</document>

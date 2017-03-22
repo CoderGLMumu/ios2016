@@ -1,0 +1,16 @@
+/* 
+  File.strings
+  goutongbao
+
+  Created by zcl on 15/8/3.
+  Copyright (c) 2015年 zcl. All rights reserved.
+*/
+
+// PIC
+
+"EXTEND_BTN_IMAGE" = "p_15";
+"LOGIN" = "p_03";
+"COSTOM_LIST" = "p_04";
+"CLOUND_NEED" = "p_05";
+"RESPOND_FOR_US" = "p_07";
+"SETTING" = "p_08";

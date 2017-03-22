@@ -1,0 +1,311 @@
+//
+//  MyCourseVC.m
+//  JZBRelease
+//
+//  Created by cl z on 16/9/12.
+//  Copyright © 2016年 zjapple. All rights reserved.
+//
+
+#import "MyCourseVC.h"
+#import "MycourseCell.h"
+#import "ZJBHelp.h"
+#import "Defaults.h"
+#import "CourseTypeView.h"
+#import "SerialsCourseVC.h"
+#import "CourseTimeVC.h"
+#import "SendedCourseListVC.h"
+#import "DataBaseHelperSecond.h"
+#import "ApplyTeacherVC.h"
+#import "PlayBackVideoCourseVC.h"
+#import "HasBoughtCourseTimeVC.h"
+#import "FocusedCourseTimeListVC.h"
+#import "SendedCourseTimeListVC.h"
+#import "playerDownLoad.h"
+
+
+@interface MyCourseVC ()<UIActionSheetDelegate>{
+    NSArray *image1Ary,*image2Ary,*labelAry,*teacherAry;
+    NSInteger which;
+}
+
+@end
+
+@implementation MyCourseVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"f8f8f8"]];
+    
+    which = -1;
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    image1Ary = @[@"WD_KC_GZ",@"WD_KC_YBM",@"LXXZ_DOWN"];
+    image2Ary = @[@"WD_KC_DS"];
+    DataBaseHelperSecond *db = [DataBaseHelperSecond getInstance];
+    
+    if (self.isOther) {
+        
+        if ([self.user.is_teacher integerValue] == 1) {
+<<<<<<< .mine
+            labelAry = @[@"已发布",@"回放录像"];
+=======
+            labelAry = @[@"发布",@"精彩回放"];
+>>>>>>> .r1451
+            which = 0;
+        }
+        
+    }else {
+        Users *user = [[Users alloc]init];
+        user.uid = [[LoginVM getInstance] readLocal]._id;
+        user = (Users *)[db getModelFromTabel:user];
+        if ([user.is_teacher integerValue] == 1) {
+<<<<<<< .mine
+            labelAry = @[@"已收藏",@"已报名",@"离线下载"];
+            teacherAry = @[@"发布"];
+=======
+            labelAry = @[@"发布",@"精彩回放",@"已报名",@"已收藏",@"下载"];
+>>>>>>> .r1451
+            which = 0;
+        }else{
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *teacherState = [userDefaults objectForKey:@"TeacherState"];
+            if (!teacherState) {
+<<<<<<< .mine
+                labelAry = @[@"已收藏",@"已报名",@"离线下载"];
+                teacherAry = @[@"申请导师"];
+=======
+                labelAry = @[@"申请导师",@"已报名",@"已收藏",@"下载"];
+>>>>>>> .r1451
+                which = 1;
+            }else{
+<<<<<<< .mine
+                labelAry = @[@"已收藏",@"已报名",@"离线下载"];
+                teacherAry = @[@"申请审核中"];
+=======
+                labelAry = @[@"申请审核中",@"已报名",@"已收藏",@"下载"];
+>>>>>>> .r1451
+                which = 2;
+            }
+        }
+
+    }
+    
+    
+    //[self configNav];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    [self configNav];
+    self.title = @"课程";
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self createTableView];
+}
+
+
+
+#pragma mark - Nav按钮 and title
+-(void)configNav
+{
+    //11 20
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 11 + 5 + 40, 35)];
+    UIImageView *backImageView = [UIImageView createImageViewWithFrame:CGRectMake(0, (35-20)/2, 20, 20) ImageName:@"DL_light_ARROW"];
+    backImageView.userInteractionEnabled = YES;
+    [backView addSubview:backImageView];
+    
+    UIControl *back = [[UIControl alloc] initWithFrame:backView.bounds];
+    [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:back];
+    UIBarButtonItem *leftBtnItem = [[UIBarButtonItem alloc] initWithCustomView:backView];
+    self.navigationItem.leftBarButtonItem = leftBtnItem;
+    
+}
+
+- (void) backAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)createTableView{
+    UITableView *tableView;
+<<<<<<< .mine
+    tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64 , self.view.frame.size.width, 44 * (labelAry.count + teacherAry.count) + (teacherAry.count + 1) * 10) style:UITableViewStylePlain];
+=======
+    tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64 + 15, self.view.frame.size.width, GLScreenH - 64 - 15) style:UITableViewStylePlain];
+>>>>>>> .r1451
+    tableView.delegate = self;
+    tableView.dataSource = self;
+//    tableView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+    self.tableView.scrollEnabled = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+<<<<<<< .mine
+    tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"f8f8f8"];
+    tableView.bounces = NO;
+    self.tableView = tableView;
+=======
+>>>>>>> .r1451
+}
+
+- (void)addCourse{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"开课方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建系列",@"新建单课", nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (0 == buttonIndex) {
+        SerialsCourseVC *serial = [[SerialsCourseVC alloc]init];
+        [self.navigationController pushViewController:serial animated:YES];
+    }else if (1 == buttonIndex){
+        CourseTimeVC *courseTimeVC = [[CourseTimeVC alloc]init];
+        [self.navigationController pushViewController:courseTimeVC animated:YES];
+    }
+}
+
+//-(void)configNav
+//{
+//
+//    UIButton *sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 0, 35, 28)];
+//    [sendBtn setImage:[UIImage imageNamed:@"BQ_DT_release"] forState:UIControlStateNormal];
+//    [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [sendBtn addTarget:self action:@selector(addCourse) forControlEvents:UIControlEventTouchUpInside];
+//    [sendBtn.titleLabel setFont:[UIFont systemFontOfSize:17]];
+//    UIBarButtonItem *sendBarBtn = [[UIBarButtonItem alloc]initWithCustomView:sendBtn];
+//    self.navigationItem.rightBarButtonItem = sendBarBtn;
+//    
+//}
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (teacherAry.count) {
+        return 2;
+    }
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        return labelAry.count;
+    }
+
+    return teacherAry.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *reuseIdentifier = @"MycourseCell";
+    MycourseCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (!cell) {
+        cell = [[MycourseCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    }
+    
+    if (indexPath.section == 0) {
+        [cell.firstImageView setImage:[UIImage imageNamed:[image1Ary objectAtIndex:indexPath.row]]];
+        [cell.twoLabel setText:[labelAry objectAtIndex:indexPath.row]];
+    }else if (indexPath.section == 1) {
+        [cell.firstImageView setImage:[UIImage imageNamed:[image2Ary objectAtIndex:indexPath.row]]];
+        [cell.twoLabel setText:[teacherAry objectAtIndex:indexPath.row]];
+    }
+    
+    
+    [cell.twoLabel setTextColor:[UIColor hx_colorWithHexRGBAString:@"212121"]];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (1 == indexPath.section) {
+        if (which == 0) {
+            SendedCourseTimeListVC *vc = [[SendedCourseTimeListVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if (1 == which){
+            ApplyTeacherVC *applyVC = [[ApplyTeacherVC alloc]init];
+            applyVC.returnAction = ^(){
+                labelAry = @[@"申请审核中",@"已报名",@"已收藏",@"下载"];
+                which = 2;
+                [self.tableView reloadData];
+            };
+            [self.navigationController pushViewController:applyVC animated:YES];
+        }
+        return;
+    }else {
+        if (0 == indexPath.row) {
+            if (0 == which) {
+                HasBoughtCourseTimeVC *hasVC = [[HasBoughtCourseTimeVC alloc]init];
+                [self.navigationController pushViewController:hasVC animated:YES];
+            }else{
+                FocusedCourseTimeListVC *focusedVC = [[FocusedCourseTimeListVC alloc]init];
+                [self.navigationController pushViewController:focusedVC animated:YES];
+            }
+        }else if (1 == indexPath.row){
+            if (0 == which) {
+                PlayBackVideoCourseVC *playBackVC = [[PlayBackVideoCourseVC alloc]init];
+                [self.navigationController pushViewController:playBackVC animated:YES];
+            }else{
+                HasBoughtCourseTimeVC *hasVC = [[HasBoughtCourseTimeVC alloc]init];
+                [self.navigationController pushViewController:hasVC animated:YES];
+            }
+            
+        }else if (2 == indexPath.row){
+            playerDownLoad *vc = [playerDownLoad new];
+            
+            self.navigationController.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:vc animated:YES];
+            
+            //        if (0 == which) {
+            //            HasBoughtCourseTimeVC *hasVC = [[HasBoughtCourseTimeVC alloc]init];
+            //            [self.navigationController pushViewController:hasVC animated:YES];
+            //        }else{
+            //            FocusedCourseTimeListVC *focusedVC = [[FocusedCourseTimeListVC alloc]init];
+            //            [self.navigationController pushViewController:focusedVC animated:YES];
+            //        }
+        }else{
+            FocusedCourseTimeListVC *focusedVC = [[FocusedCourseTimeListVC alloc]init];
+            [self.navigationController pushViewController:focusedVC animated:YES];
+        }
+<<<<<<< .mine
+    
+=======
+    }else if(3 == indexPath.row){
+        if (0 == which) {
+            FocusedCourseTimeListVC *focusedVC = [[FocusedCourseTimeListVC alloc]init];
+            [self.navigationController pushViewController:focusedVC animated:YES];
+        }else{
+            playerDownLoad *vc = [playerDownLoad new];
+            
+            self.navigationController.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }else{
+        playerDownLoad *vc = [playerDownLoad new];
+        
+        self.navigationController.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:vc animated:YES];
+>>>>>>> .r1451
+    }
+    
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
+
+
+@end

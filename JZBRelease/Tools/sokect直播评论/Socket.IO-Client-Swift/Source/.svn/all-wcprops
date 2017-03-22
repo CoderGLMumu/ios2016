@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source
+END
+SocketEngineWebsocket.swift
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketEngineWebsocket.swift
+END
+WebSocket.swift
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/WebSocket.swift
+END
+SocketEventHandler.swift
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketEventHandler.swift
+END
+SocketLogger.swift
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketLogger.swift
+END
+SocketEngineSpec.swift
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketEngineSpec.swift
+END
+SocketEnginePollable.swift
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketEnginePollable.swift
+END
+SSLSecurity.swift
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SSLSecurity.swift
+END
+SocketIOClientSpec.swift
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketIOClientSpec.swift
+END
+SocketAckEmitter.swift
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketAckEmitter.swift
+END
+SocketAnyEvent.swift
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketAnyEvent.swift
+END
+SocketAckManager.swift
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketAckManager.swift
+END
+SocketParsable.swift
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketParsable.swift
+END
+SocketStringReader.swift
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketStringReader.swift
+END
+SocketIOClientConfiguration.swift
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketIOClientConfiguration.swift
+END
+SocketExtensions.swift
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketExtensions.swift
+END
+SocketEnginePacketType.swift
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketEnginePacketType.swift
+END
+SocketIOClientOption.swift
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketIOClientOption.swift
+END
+SocketEngineClient.swift
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketEngineClient.swift
+END
+SocketTypes.swift
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketTypes.swift
+END
+SocketEngine.swift
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketEngine.swift
+END
+SocketIOClient.swift
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketIOClient.swift
+END
+SocketPacket.swift
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketPacket.swift
+END
+SocketClientManager.swift
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketClientManager.swift
+END
+SocketIOClientStatus.swift
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/jianzhong/!svn/ver/2694/ios2016/JZBRelease/Tools/sokect%E7%9B%B4%E6%92%AD%E8%AF%84%E8%AE%BA/Socket.IO-Client-Swift/Source/SocketIOClientStatus.swift
+END

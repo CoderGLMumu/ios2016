@@ -1,0 +1,20 @@
+//
+//  MYAlterEMailPopView.h
+//  JZBRelease
+//
+//  Created by zjapple on 16/8/23.
+//  Copyright © 2016年 zjapple. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface MYAlterEMailPopView : UIView
+
++ (instancetype)myAlterEMailPopView;
+
+/** enterCallback */
+@property (nonatomic, copy) void(^enterCallback)(NSString *email);
+/** enterCallback */
+@property (nonatomic, copy) void(^cancelCallback)();
+
+@end

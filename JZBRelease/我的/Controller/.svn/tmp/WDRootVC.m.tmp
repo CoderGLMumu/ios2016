@@ -1,0 +1,1102 @@
+//
+//  WDRootVC.m
+//  JZBRelease
+//
+//  Created by zjapple on 16/9/3.
+//  Copyright © 2016年 zjapple. All rights reserved.
+//
+
+#import "WDRootVC.h"
+
+#import "DataBaseHelperSecond.h"
+
+#import "WDPersonInfoVC.h"
+#import "BQDynamicVC.h"
+#import "PerActivityVC.h"
+#import "PerAskAndAnswerVC.h"
+#import "MyCourseVC.h"
+#import "PersonalInformationViewController.h"
+
+#import "MYSettingVC.h"
+#import "IntegralDetailVC.h"
+
+#import "HKImageClipperViewController.h"
+#import "HKModelMarco.h"
+#import "FansListVC.h"
+#import "AttentionListVC.h"
+
+#import "WDRootCell.h"
+#import "ApplyVipVC.h"
+
+#import "AppDelegate.h"
+#import "Masonry.h"
+
+#import "UserQSItem.h"
+
+#import "playerDownLoad.h"
+
+@interface WDRootVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,UITableViewDelegate,UITableViewDataSource>
+
+/** userInfo */
+@property (nonatomic, strong) UserInfo *userInfo;
+/** user */
+@property (nonatomic, strong) Users *users;
+
+@property(nonatomic, assign) BOOL isZLT;
+
+@property (weak, nonatomic) IBOutlet UIImageView *userAvaImageView;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fansLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *JiFenLabel;
+@property (weak, nonatomic) IBOutlet UILabel *FenSiLabel;
+@property (weak, nonatomic) IBOutlet UILabel *focusLabel;
+@property (weak, nonatomic) IBOutlet UIButton *sing_monthButtonLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contributionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *LeftContributionName;
+@property (weak, nonatomic) IBOutlet UILabel *contribution_this_levelNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *contribution_next_levelNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *type_nameLabel;
+@property (weak, nonatomic) IBOutlet UIView *type_nameRightView;
+@property (weak, nonatomic) IBOutlet UILabel *zntLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *JifenProgressV;
+
+@property (weak, nonatomic) IBOutlet UIImageView *topBackGImageView;
+
+@property(nonatomic, strong) NSData *fileData;
+@property (weak, nonatomic) IBOutlet UILabel *companyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *jobLabel;
+@property (weak, nonatomic) IBOutlet UILabel *painLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *panNameLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *painWCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *PainAndAddressViewHCons;
+@property (weak, nonatomic) IBOutlet UIScrollView *contentScrV;
+@property (weak, nonatomic) IBOutlet UIButton *lastButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewSH;
+@property (weak, nonatomic) IBOutlet UIButton *fwxmButton;
+@property (weak, nonatomic) IBOutlet UIView *lastbotSpeView;
+@property (weak, nonatomic) IBOutlet UIButton *wdkcButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addressLToPainLConstrTop;
+@property (weak, nonatomic) IBOutlet UILabel *addressNameLabel;
+
+/** tableView */
+@property (weak, nonatomic) UITableView *tableView;
+/** 数据源 */
+@property (nonatomic, strong) NSArray *dataSource;
+
+@property (weak, nonatomic) IBOutlet UIView *midView;
+
+@end
+
+@implementation WDRootVC
+
+static NSString *ID = @"WDTableViewCell";
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    [self setupSubView];
+    
+    self.navigationController.hidesBottomBarWhenPushed = YES;
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.tabBarController.tabBar setHidden:NO];
+    
+    self.contentViewSH.constant = 888;
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    self.view.frame = CGRectMake(0, 0, GLScreenW, GLScreenH);
+    
+    self.tabBarController.tabBar.gly_y = GLScreenH - 49;
+    self.tabBarController.tabBar.hidden = NO;
+    
+    /** 会刷新数据 */
+    [self loadDBAndDown];
+    
+//    [self setupSubViewData];
+    
+    self.userAvaImageView.layer.cornerRadius = self.userAvaImageView.glw_width * 0.5;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.tabBarController.tabBar.gly_y = GLScreenH - 49;
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    self.userAvaImageView.layer.cornerRadius = self.userAvaImageView.glw_width * 0.5;
+    self.tabBarController.tabBar.gly_y = GLScreenH - 49;
+}
+
+/** 点击更改topBG图片 */
+#pragma mark - 点击更改topBG图片
+- (void)tapTopBGImageView
+{
+    [self personViewBtnActionToBackground];
+}
+
+- (void)setupSubView
+{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapTopBGImageView)];
+    
+    self.topBackGImageView.userInteractionEnabled = YES;
+    [self.topBackGImageView addGestureRecognizer:tap];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    /** imageFilePath 是保存图片的沙盒地址 用UIImage的imageWithContentsOfFile方法加载 */
+    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"selfPhoto.jpg"];
+    
+    if ([UIImage imageWithContentsOfFile:imageFilePath]) {
+        self.topBackGImageView.image = [UIImage imageWithContentsOfFile:imageFilePath];
+    }
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.topBackGImageView.frame.size.width, self.topBackGImageView.frame.size.height)];
+    toolbar.barStyle = UIBarStyleBlack;
+    toolbar.translucent = YES;
+    toolbar.alpha = 0.97;
+    [self.topBackGImageView addSubview:toolbar];
+    toolbar.hidden = YES;
+    
+    self.userAvaImageView.clipsToBounds = YES;
+    self.userAvaImageView.layer.borderWidth = 2;
+    self.userAvaImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    UITapGestureRecognizer *tapScoreLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickScore:)];
+    UITapGestureRecognizer *tapJiFenLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickScore:)];
+    
+    [self.scoreLabel addGestureRecognizer:tapScoreLabel];
+    [self.JiFenLabel addGestureRecognizer:tapJiFenLabel];
+    
+    UITapGestureRecognizer *tapFansLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickFans:)];
+    UITapGestureRecognizer *tapFenSiLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickFans:)];
+    
+    [self.fansLabel addGestureRecognizer:tapFansLabel];
+    [self.FenSiLabel addGestureRecognizer:tapFenSiLabel];
+    
+    /** 积分进度条 */
+    self.JifenProgressV.layer.cornerRadius = 5;
+    self.JifenProgressV.clipsToBounds = YES;
+    self.JifenProgressV.layer.borderWidth = 1;
+    self.JifenProgressV.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"ff9800"].CGColor;
+    /** 整条的颜色 trackTintColor 就看不见了 */
+    self.JifenProgressV.trackTintColor = [UIColor whiteColor];
+    /** 目前进度的颜色 */
+    self.JifenProgressV.progressTintColor = [UIColor hx_colorWithHexRGBAString:@"ff9800"];
+    
+    //设置进度值
+    self.JifenProgressV.progress = 0.0;
+    
+    //设置进度值并动画显示
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.JifenProgressV setProgress:0.35 animated:YES];
+//    });
+    
+    
+    /** 貌似没用*/
+//    self.JifenProgressV.tintColor = [UIColor purpleColor];
+    /** 背景颜色-最后的设置了 trackTintColor 就看不见了 */
+//    self.JifenProgressV.backgroundColor = [UIColor greenColor];
+//    self.contentScrV.bounces = NO;
+    
+}
+
+/** 跳转积分充值列表 */
+- (void)clickScore:(UITapGestureRecognizer *)tap
+{
+//    IntegralDetailVC *vc = [[UIStoryboard storyboardWithName:@"IntegralDetailVC" bundle:nil] instantiateInitialViewController];
+//    
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
+/** 跳转粉丝列表 */
+- (void)clickFans:(UITapGestureRecognizer *)tap
+{
+    
+}
+/** 跳转粉丝列表 */
+- (IBAction)clickFasnList:(UIControl *)sender {
+    
+    FansListVC *vc = [FansListVC new];
+    
+    vc.title = @"粉丝列表";
+    vc.user = self.users;
+
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+- (IBAction)clickAttentionList:(UIControl *)sender {
+    
+    AttentionListVC *vc = [AttentionListVC new];
+    
+    vc.title = @"关注列表";
+    vc.user = self.users;
+
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+/** 跳转积分充值列表 */
+- (IBAction)clickMoney:(UIControl *)sender {
+    
+    AppDelegate *appDelegate = ((AppDelegate *)[[UIApplication sharedApplication] delegate]);
+    
+    if (!appDelegate.checkpay) {
+        return ;
+    }
+    IntegralDetailVC *vc = [[UIStoryboard storyboardWithName:@"IntegralDetailVC" bundle:nil] instantiateInitialViewController];
+    vc.bangbiCount = self.users.money;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (void)loadDBAndDown
+{
+    /** 缓存数据库 */
+    DataBaseHelperSecond *db = [DataBaseHelperSecond getInstance];
+    [db initDataBaseDB];
+
+    self.userInfo = [[LoginVM getInstance]readLocal];
+    
+    __block Users *model = [Users new];
+    
+    model.uid = self.userInfo._id;
+    model = (Users *)[db getModelFromTabel:model];
+    
+    self.users = model;
+    
+//    [self setupSubViewData];
+
+    NSDictionary *parameters = @{
+                                 @"access_token":self.userInfo.token,
+                                 @"uid":@"0"
+                                 };
+    
+    [HttpToolSDK postWithURL:[[ValuesFromXML getValueWithName:abPath WithKind:XMLTypeNetPort] stringByAppendingPathComponent:@"Web/user/info"] parameters:parameters success:^(id json) {
+        
+        model = [Users mj_objectWithKeyValues:json[@"data"]];
+        
+        self.users = model;
+        
+        if ([db isExistInTable:model]) {
+            [db delteModelFromTabel:model];
+            [db insertModelToTabel:model];
+        }else{
+            if ([db createTabel:model]) {
+                [db insertModelToTabel:model];
+            };
+        }
+      
+        [self setupSubViewData];
+//            NSLog(@"TTT--json%@",json);
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)setupSubViewData
+{
+    if ([self.users.type isEqualToString:@"2"]) {
+        self.isZLT = YES;
+    }else{
+//        self.lastButton = self.wdkcButton;
+    }
+    
+    if (self.isZLT) {
+        self.panNameLabel.text = @"擅长领域：";
+    }else{
+        self.panNameLabel.text = @"经营痛点：";
+    }
+    
+    [self.userAvaImageView sd_setImageWithURL:[NSURL URLWithString:[AddHostToLoadPIC AddHostToLoadPICWithString:self.users.avatar]] placeholderImage:[UIImage imageNamed:@"ZCCG_TX"]];
+    
+    self.scoreLabel.text = self.users.money;
+    self.fansLabel.text = self.users.fans_count;
+    self.focusLabel.text = self.users.fllow_count;
+    self.nickNameLabel.text = self.users.nickname;
+    
+//    [self.sing_monthButtonLabel setTitle:[NSString stringWithFormat:@"签到 + %@",self.users.sing_month] forState:UIControlStateNormal];
+    
+    if (self.users.contribution == nil || [self.users.contribution isEqualToString:@"nil"]) {
+        self.users.contribution = @"";
+    }
+    
+    self.contributionLabel.text = [NSString stringWithFormat:@"贡献值：%@",self.users.contribution];
+;
+    if (self.users.contribution_level.this_level.name == nil || [self.users.contribution_level.this_level.name isEqualToString:@"nil"]) {
+        self.users.contribution_level.this_level.name = @"";
+    }
+    
+    if (self.users.contribution_level.next_level.name == nil || [self.users.contribution_level.next_level.name isEqualToString:@"nil"]) {
+        self.users.contribution_level.next_level.name = @"";
+    }
+    
+    self.LeftContributionName.text = self.users.contribution_level.this_level.name;
+    self.contribution_this_levelNameLabel.text = self.users.contribution_level.this_level.name;
+    self.contribution_next_levelNameLabel.text = self.users.contribution_level.next_level.name;
+    self.type_nameLabel.text = self.users.type_name;
+    self.painLabel.text = self.users.pain;
+    [self.panNameLabel sizeToFit];
+    
+//    self.painWCons.constant = GLScreenW - self.panNameLabel.glw_width - 35;
+    
+    self.addressLabel.text = self.users.address;
+    
+    if (self.users.company.length >=8) {
+        self.companyLabel.text = [NSString stringWithFormat:@"%@...",[self.users.company substringToIndex:8]];
+    }else {
+        self.companyLabel.text = self.users.company;
+    }
+    
+    self.jobLabel.text = self.users.job;
+    self.zntLabel.text = self.users.znt;
+    
+    
+    if ([self.jobLabel.text isEqualToString:@""]) {
+        self.jobLabel.text = @"暂无";
+    }else {
+        //        self.type_nameRightView.hidden = NO;
+    }
+    
+    if ([self.jobLabel.text isEqualToString:@""]) {
+        self.type_nameRightView.hidden = YES;
+    }else {
+        self.type_nameRightView.hidden = NO;
+    }
+    
+    if (self.users.is_sign.integerValue == 1) {
+//        self.sing_monthButtonLabel.enabled = NO;
+        self.sing_monthButtonLabel.alpha = 0.75;
+    }else {
+        self.sing_monthButtonLabel.alpha = 1;
+        self.sing_monthButtonLabel.enabled = YES;
+    }
+    
+    [self.painLabel sizeToFit];
+    [self.addressLabel sizeToFit];
+    
+    [self.view layoutIfNeeded];
+    
+    if (!self.isZLT) {
+        self.fwxmButton.hidden = YES;
+    }
+    
+    if (![self.painLabel.text isEqualToString:@""]){
+        self.PainAndAddressViewHCons.constant = 15 + 10 + self.painLabel.glh_height + self.addressLabel.glh_height + 10;
+        
+        self.painWCons.constant = GLScreenW - self.panNameLabel.glw_width - 35;
+    }else {
+        self.addressLToPainLConstrTop.constant = 25;
+    }
+    
+//    NSLog(@"??sdfsdF?sDF? -%@ - %f- %f",self.painLabel,self.addressLabel.glh_height,self.PainAndAddressViewHCons.constant);
+    
+    [self.painLabel sizeToFit];
+    [self.addressLabel sizeToFit];
+//    [self.fwxmButton sizeToFit];
+    [self.view layoutIfNeeded];
+//    [self.fwxmButton sizeToFit];
+    
+//    [self.addressNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.painLabel.mas_bottom).offset(10);
+//    }];
+    
+    if (![self.painLabel.text isEqualToString:@""]){
+        
+        self.painWCons.constant = GLScreenW - self.panNameLabel.glw_width - 35;
+        
+        self.addressLToPainLConstrTop.constant = 10;
+        
+        self.PainAndAddressViewHCons.constant = 15 + 10 + self.painLabel.glh_height + self.addressLabel.glh_height + 10;
+        if ([self.addressLabel.text isEqualToString:@""]) {
+            self.PainAndAddressViewHCons.constant += 20;
+        }
+        
+    }else {
+        self.addressLToPainLConstrTop.constant = 25;
+        self.PainAndAddressViewHCons.constant = 75;
+    }
+    
+    GLLog(@"painWCons.constant = %f",self.painWCons.constant)
+    GLLog(@"PainAndAddressViewHCons.constant = %f",self.PainAndAddressViewHCons.constant)
+    
+//    self.contentViewSH.constant = self.lastButton.glb_bottom;
+//    self.contentScrV.contentSize = CGSizeMake(0, self.lastButton.glb_bottom + self.painLabel.glh_height + 12);
+    
+//    if (!self.isZLT) {
+//        self.contentViewSH.constant -= self.fwxmButton.glh_height;
+//        self.contentViewSH.constant +=100;
+//        self.lastbotSpeView.hidden = YES;
+//    }
+    
+    [self.view layoutIfNeeded];
+    
+//    self.contentViewSH.constant = self.lastButton.glb_bottom + 12;
+//    self.contentScrV.contentSize = CGSizeMake(0, self.lastButton.glb_bottom + self.painLabel.glh_height);
+    
+//    if (!self.isZLT) {
+//        self.contentViewSH.constant -= self.fwxmButton.glh_height;
+    if ([self.addressLabel.text isEqualToString:@""]) {
+//        self.contentViewSH.constant -= 50;
+    }else {
+//        self.contentViewSH.constant -= 30;
+    }
+//        self.contentViewSH.constant +=100;
+        self.lastbotSpeView.hidden = YES;
+//    }
+    
+    [self setuptableView];
+    
+}
+
+
+
+- (void)pushBQDynamicVC
+{
+    BQDynamicVC *bqRoot = [[BQDynamicVC alloc]init];
+    bqRoot.fromPernoal = YES;
+    Users *user = [[Users alloc]init];
+    user.uid = [[LoginVM getInstance] readLocal]._id;
+    user = (Users *)[[DataBaseHelperSecond getInstance]getModelFromTabel:user];
+    bqRoot.user = user;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //self.navigationController.navigationBar.hidden = NO;
+    [self.navigationController pushViewController:bqRoot animated:YES];
+
+}
+
+- (void)pushPerActivityVC
+{
+    PerActivityVC *perActivityVC = [[PerActivityVC alloc]init];
+    Users *user = [[Users alloc]init];
+    user.uid = [[LoginVM getInstance] readLocal]._id;
+    user = (Users *)[[DataBaseHelperSecond getInstance]getModelFromTabel:user];
+    perActivityVC.user = user;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController pushViewController:perActivityVC animated:YES];
+}
+
+- (void)pushPerAskAndAnswerVC
+{
+    PerAskAndAnswerVC *perAAVC = [[PerAskAndAnswerVC alloc]init];
+    Users *user = [[Users alloc]init];
+    user.uid = [[LoginVM getInstance] readLocal]._id;
+    user = (Users *)[[DataBaseHelperSecond getInstance]getModelFromTabel:user];
+    perAAVC.user = user;
+    //[self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController pushViewController:perAAVC animated:YES];
+}
+
+- (void)pushMyCourseVC
+{
+    MyCourseVC *myVC = [[MyCourseVC alloc]init];
+    //[self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    //[self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:myVC animated:YES];
+}
+
+/** 跳转个人动态 */
+- (IBAction)ClickGRDTButton:(UIButton *)sender {
+    [Toast makeShowCommen:@"" ShowHighlight:@"暂未开放" HowLong:0.8];
+//    [self pushBQDynamicVC];
+    
+}
+
+/** 跳转商机(活动) */
+- (IBAction)ClickHDButton:(UIButton *)sender {
+    
+    [self pushPerActivityVC];
+    
+}
+
+/** 跳转话题(问答) */
+- (IBAction)ClickWDButton:(UIButton *)sender {
+    
+    [self pushPerAskAndAnswerVC];
+    
+}
+
+/** 跳转课程(金牌-) */
+- (IBAction)ClickKCButton:(UIButton *)sender {
+    
+    [self pushMyCourseVC];
+    
+}
+
+/** 设置 - 更多 */
+- (IBAction)settingButtonClick:(UIButton *)btn
+{
+    MYSettingVC *settingVC = [[UIStoryboard storyboardWithName:@"MYSettingVC" bundle:nil] instantiateInitialViewController];
+    
+    [self.navigationController pushViewController:settingVC animated:YES];
+}
+
+/** 个人介绍 */
+- (IBAction)ClickPersonInfoControl:(UIControl *)sender {
+    
+    WDPersonInfoVC *vc = [[UIStoryboard storyboardWithName:@"WDPersonInfoVC" bundle:nil]instantiateInitialViewController];
+    vc.isZLT = self.isZLT;
+    vc.user = self.users;
+    
+    vc.isMine = YES;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
+#pragma mark - 点击签到
+/** 点击签到 */
+- (IBAction)ClickQDButton:(UIButton *)sender {
+    
+    UserInfo *userInfo = [[LoginVM getInstance]readLocal];
+    
+    NSDictionary *parameters = @{
+                                 @"access_token":userInfo.token,
+                                 
+                                 };
+    
+    [HttpToolSDK postWithURL:[[ValuesFromXML getValueWithName:abPath WithKind:XMLTypeNetPort] stringByAppendingPathComponent:@"Web/user/sign"] parameters:parameters success:^(id json) {
+        
+        [SVProgressHUD setMinimumDismissTimeInterval:1.5];
+        
+        UserQSItem *item = [UserQSItem mj_objectWithKeyValues:json];
+        
+        
+        if (![item.state isEqual:@(1)]) {
+            [SVProgressHUD showInfoWithStatus:item.info];
+        }else {
+            
+//            NSNumber *num = json[@"data"][@"contribution"];
+            NSNumber *num = item.contribution;
+            
+            [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"签到成功,增加帮币 + %@",num]];
+        }
+        
+        self.users.is_sign = @(1);
+//        self.sing_monthButtonLabel.enabled = NO;
+        self.sing_monthButtonLabel.alpha = 0.75;
+        
+        [self loadDBAndDown];
+        /** 日历 */
+//        [self setupCalendarView];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+
+
+/** 更改头部视图背景 */
+- (void)personViewBtnActionToBackground
+{
+    
+    UIActionSheet* actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:@"请选择文件来源"
+                                  delegate:self
+                                  cancelButtonTitle:@"取消"
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:@"本地相簿",nil];
+    actionSheet.title = @"更改背景";
+    
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark -
+#pragma UIActionSheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([actionSheet.title isEqualToString:@"更改背景"]) {
+        if (buttonIndex == 0) {
+//            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+//            imagePicker.delegate = self;
+//            imagePicker.allowsEditing = YES;
+//            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//            /** push的控制器返回有 BUG */
+//            [self presentViewController:imagePicker animated:YES completion:nil];
+            [self photoWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
+    }
+    
+    //    else{
+    //        switch (buttonIndex) {
+    //            case 0://照相机
+    //            {
+    //                UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    //                imagePicker.delegate = self;
+    //                imagePicker.allowsEditing = YES;
+    //                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    //                [self presentViewController:imagePicker animated:YES completion:nil];
+    //
+    //            }
+    //                break;
+    //            case 1://本地相簿
+    //            {
+    //                UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    //                imagePicker.delegate = self;
+    //                imagePicker.allowsEditing = YES;
+    //                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    //                [self presentViewController:imagePicker animated:YES completion:nil];
+    //            }
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //    }
+}
+
+- (void)photoWithSourceType:(UIImagePickerControllerSourceType)type{
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = type;
+    //imagePicker.allowsEditing = self.systemEditing;
+    imagePicker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (UIImage *)turnImageWithInfo:(NSDictionary<NSString *,id> *)info {
+    UIImage *image=[info objectForKey:UIImagePickerControllerOriginalImage];
+    //类型为 UIImagePickerControllerOriginalImage 时调整图片角度
+    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([type isEqualToString:@"public.image"]) {
+        UIImageOrientation imageOrientation=image.imageOrientation;
+        if(imageOrientation!=UIImageOrientationUp) {
+            // 原始图片可以根据照相时的角度来显示，但 UIImage无法判定，于是出现获取的图片会向左转90度的现象。
+            UIGraphicsBeginImageContext(image.size);
+            [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+            image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+        }
+    }
+    return image;
+    
+}
+
+#pragma mark -
+#pragma UIImagePickerController Delegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+//    if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(__bridge NSString *)kUTTypeImage]) {
+//        UIImage *img = [info objectForKey:UIImagePickerControllerEditedImage];
+//        [self performSelector:@selector(saveImage:)  withObject:img afterDelay:0.5];
+//    }
+//    else if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(__bridge NSString *)kUTTypeMovie]) {
+//        NSString *videoPath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
+//        self.fileData = [NSData dataWithContentsOfFile:videoPath];
+//    }
+//    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    //自定义裁剪方式
+    UIImage*image = [self turnImageWithInfo:info];
+    HKImageClipperViewController *clipperVC = [[HKImageClipperViewController alloc]initWithBaseImg:image
+                                                                                     resultImgSize:self.topBackGImageView.frame.size clipperType:ClipperTypeImgMove];
+    __weakSelf(self);
+    clipperVC.cancelClippedHandler = ^(){
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    };
+    clipperVC.successClippedHandler = ^(UIImage *clippedImage){
+        __strongSelf(weakSelf);
+//        UIImageView *addImageView = strongSelf.topBackGImageView;
+//        if (!addImageView.hidden) {
+//            addImageView.hidden = YES;
+//        }
+//        [strongSelf.topBackGImageView setImage:clippedImage];
+        
+        [weakSelf saveImage:clippedImage];
+        
+        //            strongSelf.layerView.layer.contents =(__bridge id _Nullable)(clippedImage.CGImage);
+        //            strongSelf.layerView.contentMode = UIViewContentModeScaleAspectFit;
+        //            strongSelf.layerView.layer.contentsGravity = kCAGravityResizeAspect;
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    };
+    
+    [picker pushViewController:clipperVC animated:YES];
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)saveImage:(UIImage *)image {
+    //    NSLog(@"保存背景！");
+    //    [userPhotoButton setImage:image forState:UIControlStateNormal];
+    BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    /** imageFilePath 是保存图片的沙盒地址 用UIImage的imageWithContentsOfFile方法加载 */
+    NSString *imageFilePath = [documentsDirectory stringByAppendingPathComponent:@"selfPhoto.jpg"];
+    //    NSLog(@"imageFile->>%@",imageFilePath);
+    success = [fileManager fileExistsAtPath:imageFilePath];
+    if(success) {
+        success = [fileManager removeItemAtPath:imageFilePath error:&error];
+    }
+    
+    /** 注释了生存小图 */
+    //    UIImage *smallImage=[self scaleFromImage:image toSize:CGSizeMake(80.0f, 80.0f)];//将图片尺寸改为80*80
+    //    UIImage *smallImage = [self thumbnailWithImageWithoutScale:image size:CGSizeMake(93, 93)];
+    
+    //    [UIImageJPEGRepresentation(smallImage, 1.0f) writeToFile:imageFilePath atomically:YES];//写入文件
+    
+    [UIImageJPEGRepresentation(image, 1.0f) writeToFile:imageFilePath atomically:YES];//写入文件
+    
+    UIImage *selfPhoto = [UIImage imageWithContentsOfFile:imageFilePath];//读取图片文件
+    //    [userPhotoButton setImage:selfPhoto forState:UIControlStateNormal];
+    //    self.img.image = selfPhoto;
+    self.topBackGImageView.image = selfPhoto;
+    //    [self uploadImg:selfPhoto];
+}
+
+// 改变图像的尺寸，方便上传服务器
+- (UIImage *) scaleFromImage: (UIImage *) image toSize: (CGSize) size
+{
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+//2.保持原来的长宽比，生成一个缩略图
+- (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
+{
+    UIImage *newimage;
+    if (nil == image) {
+        newimage = nil;
+    }
+    else{
+        CGSize oldsize = image.size;
+        CGRect rect;
+        if (asize.width/asize.height > oldsize.width/oldsize.height) {
+            rect.size.width = asize.height*oldsize.width/oldsize.height;
+            rect.size.height = asize.height;
+            rect.origin.x = (asize.width - rect.size.width)/2;
+            rect.origin.y = 0;
+        }
+        else{
+            rect.size.width = asize.width;
+            rect.size.height = asize.width*oldsize.height/oldsize.width;
+            rect.origin.x = 0;
+            rect.origin.y = (asize.height - rect.size.height)/2;
+        }
+        UIGraphicsBeginImageContext(asize);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+        UIRectFill(CGRectMake(0, 0, asize.width, asize.height));//clear background
+        [image drawInRect:rect];
+        newimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    return newimage;
+}
+
+#pragma mark - 按钮tableView
+- (void)setuptableView
+{
+    
+    [self.view layoutIfNeeded];
+    
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.midView.gly_y + self.midView.glh_height + 0 + 0, GLScreenW, 388 + 12) style:UITableViewStylePlain];
+
+    
+    if (self.tableView.superview == nil) {
+        
+        UIView *footview = [UIView new];
+        footview.frame = CGRectMake(0, 0, GLScreenW, 12);
+        footview.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"F2F2F2"];
+        
+        UIView *fengexian000 = [UIView new];
+        [footview addSubview:fengexian000];
+        fengexian000.frame = CGRectMake(0, 0, GLScreenW, 1);
+        fengexian000.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"e5e5e5"];
+        
+        tableView.tableFooterView = footview;
+        
+        tableView.gly_y = self.midView.gly_y + self.midView.glh_height + 0 + 0 ;
+        
+        if (!self.isZLT) {
+            tableView.glh_height = 388 - 44;
+        }else {
+            tableView.glh_height = 388;
+        }
+        
+        tableView.glh_height += 12;
+        
+        GLLog(@"1self.tableView.glh_height = %f",self.tableView.glh_height);
+        
+        self.contentScrV.contentSize = CGSizeMake(0, tableView.gly_y + tableView.glh_height + + self.midView.glh_height + 0 + 9 - 64);
+        self.contentViewSH.constant = tableView.gly_y + tableView.glh_height + + self.midView.glh_height + 0 + 9 - 64;
+        
+        [self.contentScrV addSubview:tableView];
+        
+//        NSLog(@"t1t1t1%f",self.contentViewSH.constant);
+//        NSLog(@"t333333333%f--%f--%f",tableView.gly_y,self.tableView.glh_height,self.midView.glh_height);
+    }else {
+        self.tableView.gly_y = self.midView.gly_y + self.midView.glh_height + 0 + 0 ;
+        self.tableView.glh_height = 388;
+        
+        if (!self.isZLT) {
+            self.tableView.glh_height = 388 - 44;
+        }else {
+            self.tableView.glh_height = 388;
+        }
+        
+        self.tableView.glh_height += 12;
+        
+        GLLog(@"2self.tableView.glh_height = %f",self.tableView.glh_height);
+        
+        self.contentScrV.contentSize = CGSizeMake(0, tableView.gly_y + self.tableView.glh_height + + self.midView.glh_height + 0 + 9 - 64);
+        self.contentViewSH.constant = tableView.gly_y + self.tableView.glh_height + + self.midView.glh_height + 0 + 9 - 64;
+        
+//        NSLog(@"t2t2t2%f",self.contentViewSH.constant);
+//        NSLog(@"t44444%f--%f--%f",tableView.gly_y,self.tableView.glh_height,self.midView.glh_height);
+        
+//        [self.contentScrV addSubview:tableView];
+        
+        return ;
+    }
+//    NSLog(@"222222222222%@",self.tableView.superview);
+    
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    
+    tableView.scrollEnabled = NO;
+    
+    [tableView registerNib:[UINib nibWithNibName:@"WDRootCell" bundle:nil] forCellReuseIdentifier:ID];
+    
+    self.tableView = tableView;
+}
+
+- (NSDateFormatter *)dateFormatter {
+    static NSDateFormatter* dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"YY年MM月dd日 hh:mm"];
+    });
+    return dateFormatter;
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        return 1;
+    }else if (section == 1) {
+        return 3;
+    }else if (section == 2) {
+        if (!self.isZLT) {
+            return 3;
+        }
+        return 4;
+    }
+    
+    return 0;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    WDRootCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (indexPath.section == 0) {
+        
+        cell.imageNameView.image = [UIImage imageNamed:@"WD_HY"];
+        cell.titleNameLabel.text = @"加入建众帮";
+
+        
+        if (self.users.vip == nil) {
+            
+        }else {
+            NSTimeInterval time= [self.users.vip.end_time doubleValue];
+            cell.rightLabel.text = [[self dateFormatter] stringFromDate:[NSDate dateWithTimeIntervalSince1970:time]];
+            
+            cell.titleNameLabel.text = @"建众帮";
+//            cell.rightLabel.text = @"1";
+        }
+        
+        
+    }else if (indexPath.section == 1) {
+        
+        if (indexPath.row == 0) {
+            cell.imageNameView.image = [UIImage imageNamed:@"WD_TALK"];
+            cell.titleNameLabel.text = @"参与话题";
+        }else if (indexPath.row == 1) {
+            cell.imageNameView.image = [UIImage imageNamed:@"WD_GRDT"];
+            cell.titleNameLabel.text = @"个人动态";
+        }else if (indexPath.row == 2) {
+            cell.imageNameView.image = [UIImage imageNamed:@"WD_SQ"];
+            cell.titleNameLabel.text = @"参与社群";
+        }
+    
+    }else if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            cell.imageNameView.image = [UIImage imageNamed:@"WD_KC"];
+            cell.titleNameLabel.text = @"我的课程";
+        }else if (indexPath.row == 1) {
+            cell.imageNameView.image = [UIImage imageNamed:@"WD_GZ"];
+            cell.titleNameLabel.text = @"关注内容";
+        }else if (indexPath.row == 2) {
+            cell.imageNameView.image = [UIImage imageNamed:@"WD_SJ"];
+            cell.titleNameLabel.text = @"商机资源";
+        }else if (indexPath.row == 3) {
+            cell.imageNameView.image = [UIImage imageNamed:@"WD_XM"];
+            cell.titleNameLabel.text = @"服务项目";
+        }
+    }
+    
+//    cell.item = self.dataSource[indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+//    WDBmember *model = self.dataSource[indexPath.row];
+//    
+//    PublicOtherPersonVC *vc = [[UIStoryboard storyboardWithName:@"PublicOtherPersonVC" bundle:nil]instantiateInitialViewController];
+//    vc.user = model.user;
+//    
+//    vc.fromDynamicDetailVC = YES;
+//    [self.navigationController setHidesBottomBarWhenPushed:YES];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
+
+    if (indexPath.section == 0) {
+        
+        AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        
+        if (appDelegate.checkpay) {
+            ApplyVipVC *applyVipVC = [[ApplyVipVC alloc]init];
+            [self.navigationController pushViewController:applyVipVC animated:YES];
+        }
+        
+        
+        //    WDBmember *model = self.dataSource[indexPath.row];
+        //
+        //    PublicOtherPersonVC *vc = [[UIStoryboard storyboardWithName:@"PublicOtherPersonVC" bundle:nil]instantiateInitialViewController];
+        //    vc.user = model.user;
+        //
+        //    vc.fromDynamicDetailVC = YES;
+        //    [self.navigationController setHidesBottomBarWhenPushed:YES];
+        //    [self.navigationController setNavigationBarHidden:YES animated:YES];
+        //    [self.navigationController pushViewController:vc animated:YES];
+        
+    }else if (indexPath.section == 1) {
+        
+        if (indexPath.row == 0) {
+            
+            [self pushPerAskAndAnswerVC];
+//            cell.imageNameView.image = [UIImage imageNamed:@"WD_TALK"];
+//            cell.titleNameLabel.text = @"参与话题";
+        }else if (indexPath.row == 1) {
+            
+            
+//            cell.imageNameView.image = [UIImage imageNamed:@"WD_GRDT"];
+//            cell.titleNameLabel.text = @"个人动态";
+//            [self pushBQDynamicVC];
+            
+        }else if (indexPath.row == 2) {
+            
+<<<<<<< .mine
+            
+//            cell.imageNameView.image = [UIImage imageNamed:@"WD_SQ"];
+=======
+            //            cell.imageNameView.image = [UIImage imageNamed:@"WD_SQ"];
+>>>>>>> .r1451
+//            cell.titleNameLabel.text = @"参与社群";
+        }
+        
+    }else if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            
+            [self pushMyCourseVC];
+//            cell.imageNameView.image = [UIImage imageNamed:@"WD_KC"];
+//            cell.titleNameLabel.text = @"我的课程";
+        }else if (indexPath.row == 1) {
+            
+            
+//            cell.imageNameView.image = [UIImage imageNamed:@"WD_GZ"];
+//            cell.titleNameLabel.text = @"关注内容";
+        }else if (indexPath.row == 2) {
+            
+            [self pushPerActivityVC];
+//            cell.imageNameView.image = [UIImage imageNamed:@"WD_SJ"];
+//            cell.titleNameLabel.text = @"商机资源";
+        }else if (indexPath.row == 3) {
+            
+            
+//            cell.imageNameView.image = [UIImage imageNamed:@"WD_XM"];
+//            cell.titleNameLabel.text = @"服务项目";
+        }
+    }
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 12;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [UIView new];
+    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"f8f8f8"];
+    
+//    view.backgroundColor = [UIColor redColor];
+    
+    UIView *topview = [UIView new];
+    UIView *botview = [UIView new];
+    
+    [view addSubview:topview];
+    [view addSubview:botview];
+    
+    topview.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"e5e5e5"];
+    botview.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"e5e5e5"];
+    
+    topview.frame = CGRectMake(0, 0, GLScreenW, 1);
+    
+    botview.frame = CGRectMake(0, 11, GLScreenW, 1);
+    
+    return view;
+}
+
+@end

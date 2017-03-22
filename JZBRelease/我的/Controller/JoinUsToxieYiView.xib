@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="JoinUsToxieYiView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cG3-Yg-m5B">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <mutableString key="text"> 建众帮用户协议：
+        在此特别提醒您（用户）在注册成为用户之前，请认真阅读本《用户协议》（以下简称“协议”），确保您充分理解本协议中各条款。请您审慎阅读并选择接受或不接受本协议。除非您接受本协议所有条款，否则您无权注册、登录或使用本协议所涉服务。您的注册、登录、使用等行为将视为对本协议的接受，并同意接受本协议各项条款的约束。
+一、软件产品保护条款
+       1.建众帮软件产品的运营权和所有权归广州建众互联网科技有限公司所有。本软件产品受中华人民共和国版权法及国际版权条约和其他知识产权法及条约的保护。用户获得的本软件产品的使用权。
+       2.用户不得对建众帮App平台任何部分通过任何方式进行复制、拷贝、出售、转售或用于任何其它商业目的。
+       3.如果您未遵守本协议的任何一项条款，广州建众有权立即终止本协议，并保留通过法律手段追究责任。
+       4.使用本软件产品由用户自己承担风险，在适用法律允许的最大范围内，广州建众在任何情况下不就因使用或不能使用本软件产品所发生的特殊的、意外的、非直接或间接的损失承担赔偿责任。即使已事先被告知该损害发生的可能性。
+二、账号注册
+      1.用户在使用建众帮平台服务前需要注册一个“建众帮”账号。该账号应当使用手机号码绑定注册，请用户使用尚未与建众帮账号绑定的手机号码，以及未被建众帮根据本协议封禁的手机号码注册账号。建众帮开发中心可以根据用户需求或产品需要对账号注册和绑定的方式进行变更，而无须事先通知用户。 
+       2.用户注册时应当授权建众帮开发中心公开及使用其个人信息方可成功注册建众帮账号。故用户完成注册即表明用户同意建众帮提取、公开及使用用户的信息。 
+       3.建众帮为家居建材行业学习交流移动平台，为保护客户的隐私及平台的专业属性，不接受除厂家或经销商以外身份的第三方组织或个人注册。
+       4.在用户注册及使用本服务时，建众帮开发中心需要搜集能识别用户身份的个人信息以便建众帮开发中心可以在必要时联系用户，或为用户提供更好的使用体验。 
+三、用户个人隐私信息保护
+       1.如果建众帮开发中心发现或收到他人举报或投诉用户违反本协议约定的，建众帮开发中心有权不经通知随时对相关内容，包括但不限于用户资料、发贴记录进行审查、删除，并视情节轻重对违规账号处以包括但不限于警告、账号封禁 、功能封禁的处罚，且通知用户处理结果。 
+       2.因违反用户协议被封禁的用户，可以自行与建众帮开发中心联系。其中，被实施功能封禁的用户会在封禁期届满后自动恢复被封禁功能。被封禁用户可提交申诉，建众帮开发中心将对申诉进行审查，并自行合理判断决定是否变更处罚措施。 
+       3.用户理解并同意，建众帮开发中心有权依合理判断对违反有关法律法规或本协议规定的行为进行处罚，对违法违规的任何用户采取适当的法律行动，并依据法律法规保存有关信息向有关部门报告等，用户应承担由此而产生的一切法律责任。 
+       4.用户理解并同意，因用户违反本协议约定，导致或产生的任何第三方主张的任何索赔、要求或损失，包括合理的律师费，用户应当赔偿建众帮开发中心与合作公司、关联公司，并使之免受损害。
+四、服务修订
+       建众帮开发中心根据自身的服务内容，以及与用户达成的协议提供服务。用户在享用本平台提供的专项服务的同时，同意接受平台提供的各类信息服务。建众帮有权在必要时修改服务条款，服务条款一旦发生变动，将会在重要页面上提示修改内容。如果不同意所改动的内容，用户可以在与建众帮取得联系后取消获得的平台服务。如果用户继续享用平台服务，则视为接受服务条款的变动。建众帮开发中心保留随时修改或中断服务而不需提前告知用户的权利。建众帮行使修改或中断服务的权利，不需对用户或第三方负责。
+五、用户使用须知
+       特别提醒用户，使用互联网必须遵守国家有关的政策和法律，如刑法、国家安全法、保密法、计算机信息系统安全保护条例等，保护国家利益，保护国家安全，对于违法使用互联网络而引起的一切责任，由用户负全部责任。
+       1.用户不得使用建众帮发送或传播敏感信息和违反国家法律制度的信息。
+       2.用户应加强个人资料的保护意识，以免对个人生活造成不必要的骚扰。
+       3.盗取他人用户账号或利用网络通讯骚扰他人，均属于非法行为。用户不得采用测试、欺骗等任何非法手段，盗取其他用户的建众帮号码和对他人进行骚扰。
+       4.建众帮账号属于第一次申请注册的用户，如果发现使用者并非账号原注册人，广州建众有权回收该账号。建议用户不要私下有偿或无偿转让账号，以免因账号问题产生纠纷。
+       5.建众帮App与注册（初次登录）手机自动绑定，如要更换登录手机，请电话联系客服020-34328419。
+       6.用户应规范、合法地使用建众帮账号，如有在公共环境下捣乱、骚扰、欺骗其他用户等行为，我公司有权回收其账号。
+       7.用户不得利用建众帮进行违反国家法律的活动。如有发现，建众帮开发中心会应公安部门要求，全力协助调查工作。
+六、免责声明
+       (1) 建众帮平台对用户在接受服务过程中所受的任何直接、间接的损害不负责任。
+       (2) 建众帮不对用户所发布信息的删除或储存失败负责。  
+       (3) 对用户自行提供的信息，由用户依法自行承担全部责任。
+       (4) 用户在本平台所发表的任何意见均属于个人意见，并不代表广州建众互联网科技有限公司及建众帮平台也持同样的观点。
+       (5) 对于因不可抗力或因黑客攻击、通讯线路中断等手机APP不能控制的原因造成的网络服务中断或其他缺陷，导致用户不能正常使用手机或APP，平台不承担任何责任，但将尽力减少因此给用户造成的损失或影响。
+七、其他
+       1.本协议的效力、解释及纠纷的解决，适用于中华人民共和国法律。若用户和建众帮平台之间发生任何纠纷或争议，首先应友好协商解决，协商不成的，用户同意将纠纷或争议提交建众帮开发中心住所地有管辖权的人民法院处理。 
+       2.本协议的最终解释权归建众帮APP平台所有。</mutableString>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uke-Fb-hxp">
+                    <state key="normal" image="videoClose"/>
+                    <connections>
+                        <action selector="close:" destination="iN0-l3-epB" eventType="touchUpInside" id="U30-WN-oif"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.35884862588652483" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Uke-Fb-hxp" firstAttribute="centerY" secondItem="cG3-Yg-m5B" secondAttribute="top" id="ATs-PJ-Ssx"/>
+                <constraint firstAttribute="bottom" secondItem="cG3-Yg-m5B" secondAttribute="bottom" constant="10" id="BZW-AN-4w0"/>
+                <constraint firstItem="cG3-Yg-m5B" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="76" id="QvV-HH-liT"/>
+                <constraint firstAttribute="trailing" secondItem="Uke-Fb-hxp" secondAttribute="trailing" constant="5" id="cMk-az-TcB"/>
+                <constraint firstItem="cG3-Yg-m5B" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="nUc-Eq-TCJ"/>
+                <constraint firstAttribute="trailing" secondItem="cG3-Yg-m5B" secondAttribute="trailing" constant="10" id="qFQ-vA-oTq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="contentView" destination="cG3-Yg-m5B" id="6kJ-GR-QFm"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="videoClose" width="25" height="25"/>
+    </resources>
+</document>

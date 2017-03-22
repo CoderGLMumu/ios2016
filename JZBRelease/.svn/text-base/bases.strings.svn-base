@@ -1,0 +1,26 @@
+/* 
+  bases.strings
+  goutongbao
+
+  Created by zcl on 15/8/26.
+  Copyright (c) 2015年 zcl. All rights reserved.
+*/
+
+
+//版本名称
+"Version" = "";
+"DOWN_LIST" = "下载列表";
+
+//cache directory
+
+
+// alertView Message
+"SendDynamicContentForNil"="抱歉，请随意分享你此刻的心情";
+
+
+//JPUSH APPKey
+"JPUSH_APPKEY"="01506457c5c2aabee3ad4d9d";
+
+
+//百度地图appKEY
+"BaiduMap_APPKEY"="uBLsm8Ssq8niGLoBTQSr6L8U1fiQLbc5";

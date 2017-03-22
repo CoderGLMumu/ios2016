@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <development version="7000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GLNickNameViewController">
+            <connections>
+                <outlet property="nickNameLabel" destination="L8M-aX-vCu" id="Z7S-ns-0ax"/>
+                <outlet property="tipLabel" destination="Izz-7N-xaI" id="wak-4f-Z31"/>
+                <outlet property="titleTF" destination="L8M-aX-vCu" id="zeE-jX-lTe"/>
+                <outlet property="titleTFConstraintsHeight" destination="j6b-O2-2oT" id="SJH-3T-nle"/>
+                <outlet property="titleTV" destination="8hz-ia-5RN" id="bds-MN-yqu"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dX9-18-4h5">
+                    <rect key="frame" x="0.0" y="84" width="375" height="67"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="L8M-aX-vCu" userLabel="nickNameLabel">
+                            <rect key="frame" x="10" y="5" width="360" height="57"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8hz-ia-5RN">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="67"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="L8M-aX-vCu" firstAttribute="top" secondItem="dX9-18-4h5" secondAttribute="top" constant="5" id="NJ6-BG-t0Y"/>
+                        <constraint firstAttribute="bottom" secondItem="L8M-aX-vCu" secondAttribute="bottom" constant="5" id="P2W-LL-Vp2"/>
+                        <constraint firstAttribute="trailing" secondItem="L8M-aX-vCu" secondAttribute="trailing" constant="5" id="Wzv-l4-EPM"/>
+                        <constraint firstItem="L8M-aX-vCu" firstAttribute="leading" secondItem="dX9-18-4h5" secondAttribute="leading" constant="10" id="Y8T-J0-JLj"/>
+                        <constraint firstItem="8hz-ia-5RN" firstAttribute="leading" secondItem="dX9-18-4h5" secondAttribute="leading" id="n7Q-UV-T5M"/>
+                        <constraint firstItem="8hz-ia-5RN" firstAttribute="top" secondItem="dX9-18-4h5" secondAttribute="top" id="p5d-ug-07c"/>
+                        <constraint firstAttribute="trailing" secondItem="8hz-ia-5RN" secondAttribute="trailing" id="xkB-oT-Uqf"/>
+                        <constraint firstAttribute="bottom" secondItem="8hz-ia-5RN" secondAttribute="bottom" id="yfm-di-Tkb"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="最多输入50个文字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Izz-7N-xaI">
+                    <rect key="frame" x="20" y="171" width="117.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Izz-7N-xaI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="IE6-80-CQv"/>
+                <constraint firstItem="dX9-18-4h5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="84" id="OsW-fz-bNW"/>
+                <constraint firstItem="Izz-7N-xaI" firstAttribute="top" secondItem="dX9-18-4h5" secondAttribute="bottom" constant="20" id="R7M-56-dCG"/>
+                <constraint firstItem="dX9-18-4h5" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.1" id="j6b-O2-2oT"/>
+                <constraint firstItem="dX9-18-4h5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kLm-hZ-aDJ"/>
+                <constraint firstAttribute="trailing" secondItem="dX9-18-4h5" secondAttribute="trailing" id="uds-37-8R2"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

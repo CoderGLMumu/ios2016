@@ -1,0 +1,21 @@
+{
+    
+    "coordinates": ["dynamic_new"="dynamic_new",
+                    "dynamic_reply"="dynamic_reply",
+                    "activity_new"="activity_new",
+                    "activity_audit"="activity_audit",
+                    "activity_apply"="activity_apply",
+                    "activity_noapply"="activity_noapply",
+                    "activity_reply"="activity_reply",
+                    "activity_cancle"="activity_cancle",
+                    "question_new"="question_new",
+                    "question_reply"="question_reply",
+                    "question_use"="question_use",
+                    "circle_new"="circle_new",
+                    "circle_forbid"="circle_forbid",
+                    "circle_reply"="circle_reply",
+                    "friend_add"="friend_add",
+                    "friend_agree"="friend_agree"
+        
+    ]
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <development version="7000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="applyGruopCell" id="a7V-It-lYF" customClass="HXApplyGruopCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a7V-It-lYF" id="A2y-tG-eYa">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ZCCG_TX" translatesAutoresizingMaskIntoConstraints="NO" id="yEC-fp-YAI">
+                        <rect key="frame" x="12" y="12" width="41" height="41"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="yEC-fp-YAI" secondAttribute="height" multiplier="1:1" id="tIO-KU-m0f"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9C-uu-acI">
+                        <rect key="frame" x="65" y="33" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIk-TU-Pqo">
+                        <rect key="frame" x="295" y="16" width="70" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="HBG-CY-zeE"/>
+                            <constraint firstAttribute="width" secondItem="SIk-TU-Pqo" secondAttribute="height" multiplier="60:29" id="SO0-yz-VFO"/>
+                            <constraint firstAttribute="height" constant="30" id="zJn-4j-0qO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" image="GLHXOkBtn"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="zJn-4j-0qO"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <action selector="TongYiButtonClick:" destination="a7V-It-lYF" eventType="touchUpInside" id="PeK-My-hEB"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已同意" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4rH-8e-8fQ">
+                        <rect key="frame" x="307" y="24" width="46" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yEC-fp-YAI" firstAttribute="leading" secondItem="A2y-tG-eYa" secondAttribute="leading" constant="12" id="AoF-Uh-OFd"/>
+                    <constraint firstAttribute="bottom" secondItem="yEC-fp-YAI" secondAttribute="bottom" constant="12" id="LZF-yt-PTC"/>
+                    <constraint firstItem="yEC-fp-YAI" firstAttribute="top" secondItem="A2y-tG-eYa" secondAttribute="top" constant="12" id="Rm9-5h-OvA"/>
+                    <constraint firstAttribute="trailing" secondItem="4rH-8e-8fQ" secondAttribute="trailing" constant="22" id="W8Z-H9-VwA"/>
+                    <constraint firstItem="B9C-uu-acI" firstAttribute="leading" secondItem="yEC-fp-YAI" secondAttribute="trailing" constant="12" id="gll-GN-PTw"/>
+                    <constraint firstItem="B9C-uu-acI" firstAttribute="centerY" secondItem="4rH-8e-8fQ" secondAttribute="centerY" id="lQ5-5X-Ko1"/>
+                    <constraint firstItem="4rH-8e-8fQ" firstAttribute="centerY" secondItem="A2y-tG-eYa" secondAttribute="centerY" id="nlM-Cb-ZoS"/>
+                    <constraint firstAttribute="trailing" secondItem="SIk-TU-Pqo" secondAttribute="trailing" constant="10" id="qfT-fI-kZ7"/>
+                    <constraint firstItem="SIk-TU-Pqo" firstAttribute="centerY" secondItem="A2y-tG-eYa" secondAttribute="centerY" id="ya8-ca-O91"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="TongyiButton" destination="SIk-TU-Pqo" id="czN-bs-cF4"/>
+                <outlet property="TongyiLabel" destination="4rH-8e-8fQ" id="8dQ-N8-ygK"/>
+                <outlet property="touxiangImageView" destination="yEC-fp-YAI" id="Z1a-1I-zzV"/>
+                <outlet property="userNameLabel" destination="B9C-uu-acI" id="yF6-8z-Sqd"/>
+            </connections>
+            <point key="canvasLocation" x="480.5" y="303.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="GLHXOkBtn" width="120" height="58"/>
+        <image name="ZCCG_TX" width="80" height="80"/>
+    </resources>
+</document>

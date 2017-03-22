@@ -1,0 +1,13 @@
+//
+//  HasBoughtCourseTimeModel.m
+//  JZBRelease
+//
+//  Created by cl z on 16/9/21.
+//  Copyright © 2016年 zjapple. All rights reserved.
+//
+
+#import "HasBoughtCourseTimeModel.h"
+
+@implementation HasBoughtCourseTimeModel
+
+@end

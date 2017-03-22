@@ -1,0 +1,121 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#define REDPACKET_AVALABLE
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+
+    #import "ChatDemoUIDefine.h"
+    #import "EMAlertView.h"
+    #import "TTGlobalUICommon.h"
+
+    #import "EMSDKFull.h"
+    #import "EaseUI.h"
+
+#import "LoginVM.h"
+#import "HttpToolSDK.h"
+#import "GLFMDBToolSDK.h"
+
+#import "NetworkExceptionHandle.h"
+#import "UIView+GLExtension.h"
+#import "SVProgressHUD.h"
+#import "AddHostToLoadPIC.h"
+#import "HexColors.h"
+#import "UIControl+ButtonClick.h"
+#import "GLButton.h"
+#import "UIImage+GLImage.h"
+
+#import "SendAndGetDataFromNet.h"
+
+#import "Toast.h"
+#import "jsonBaseItem.h"
+#import "publicBaseJsonItem.h"
+#import "notDataShowView.h"
+#import "publicBaseDJsonItem.h"
+#import "AppDelegate.h"
+#import "LocalDataRW.h"
+#import "HttpBaseRequestItem.h"
+#import "GLNAVC.h"
+
+
+#import "const.h"
+
+#define DEMO_CALL 1
+
+/***  获取屏幕大小  ***/
+#define GLScreenH [UIScreen mainScreen].bounds.size.height
+#define GLScreenW [UIScreen mainScreen].bounds.size.width
+
+// 文字的字体大小
+#define FONT_SIZE(_size_) [UIFont systemFontOfSize:_size_]
+
+/*** 日志 | ...:宏里面可变参数 ***/
+#ifdef DEBUG  // 调试
+#define GLLog(format, ...) printf("\n[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+#else   // 发布
+#define GLLog(...) /* */
+#endif
+
+#define GLFunc GLLog(@"%s",__func__)
+/*** 日志结束  ***/
+
+/*** 颜色 ***/
+#define GLColorA(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)/255.0]
+#define GLColor(r, g, b) GLColorA((r), (g), (b), 255)
+#define GLRandomColor GLColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+#define GLrayColor(v) GLColor((v), (v), (v))
+#define GLCommonBgColor GLrayColor(206)
+
+#define LBColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+#define LBGlobeColor LBColor(215, 215, 215)
+
+//// 缓存主目录
+//#define GLCachesDirectory [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+//
+//// 存储文件信息的路径（caches）
+//#define CachesNotificationQuestion [GLCachesDirectory stringByAppendingPathComponent:@"CachesNotificationQuestion.data"]
+
+// 缓存主目录
+#define GLCachesDirectory [LocalDataRW getDirectory:Directory_XB]
+//
+// 存储Question 提问 文件信息的路径（caches）
+#define CachesNotificationQuestion [GLCachesDirectory stringByAppendingPathComponent:@"CachesNotificationQuestion.data"]
+// 存储直播推送文件信息的路径（caches）
+#define CachesNotificationLiveTime [GLCachesDirectory stringByAppendingPathComponent:@"CachesNotificationLiveTime.data"]
+// 存储音视频推送文件信息的路径（caches）
+#define CachesNotificationCourseNow [GLCachesDirectory stringByAppendingPathComponent:@"CachesNotificationCourseNow.data"]
+
+// 存储总共学吧推送文件信息的路径（caches）
+#define CachesNotificationLearn [GLCachesDirectory stringByAppendingPathComponent:@"CachesNotificationLearn.data"]
+
+// 存储 商机 文件信息的路径（caches）
+#define CachesNotificationActivity [GLCachesDirectory stringByAppendingPathComponent:@"CachesNotificationActivity.data"]
+
+// 存储 推荐人 文件信息的路径（caches）
+#define CachesNotificationReference [GLCachesDirectory stringByAppendingPathComponent:@"CachesNotificationReference.data"]
+
+// 存储 新智库 文件信息的路径（caches）
+#define CachesNotificationNew_M_Wisdom [GLCachesDirectory stringByAppendingPathComponent:@"CachesNotificationNew_M_Wisdom.data"]
+
+// 文件的存放路径（caches）
+#define ZFFileFullpath(url) [ZFCachesDirectory stringByAppendingPathComponent:ZFFileName(url)]
+
+//// 缓存主目录
+//#define RecoderCachesDirectory [[LocalDataRW getDirectory:Directory_BB] stringByAppendingPathComponent:@"RecoderCache"]
+//// 保存文件名
+//#define RecoderFileName(url)  [[url componentsSeparatedByString:@"/"] lastObject]
+//// 评论音频文件的存放路径（caches）
+//#define RecoderFileFullpath(url) [RecoderCachesDirectory stringByAppendingPathComponent:RecoderFileName(url)]
+
+#endif
